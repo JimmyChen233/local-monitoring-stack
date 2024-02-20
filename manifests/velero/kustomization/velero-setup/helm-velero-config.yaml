@@ -12,7 +12,7 @@ spec:
       chart: ./manifests/velero/helm/velero-config
       sourceRef:
         kind: GitRepository
-        name: k8s-work
+        name: k8s-local-dev
         namespace: flux-system
       interval: 5m0s
       reconcileStrategy: Revision
