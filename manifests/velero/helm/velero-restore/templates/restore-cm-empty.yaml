@@ -1,0 +1,10 @@
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: velero-empty-restore
+  namespace: velero
+data:
+  restore-empty.yaml: |-
+{{ .Files.Get  "files/restore-empty.yaml" | indent 4 -}}

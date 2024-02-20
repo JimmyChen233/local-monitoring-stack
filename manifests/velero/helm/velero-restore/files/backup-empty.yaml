@@ -1,0 +1,10 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: backup-base
+  namespace: velero
+spec:
+    includedNamespaces:
+    - 'doesnotexist'
+    includedResources:
+    - 'pods'

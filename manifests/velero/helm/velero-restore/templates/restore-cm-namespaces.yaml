@@ -1,0 +1,10 @@
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: velero-namespaces
+  namespace: velero
+data:
+  restore-namespaces.yaml: |-
+{{ .Files.Get  "files/restore-namespaces.yaml" | indent 4 -}}

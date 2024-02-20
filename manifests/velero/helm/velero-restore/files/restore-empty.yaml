@@ -1,0 +1,13 @@
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  labels:
+  name: restore-placeholder
+  namespace: velero
+spec:
+  backupName: "backup-base"
+  includedResources:
+    - pods
+  includedNamespaces:
+    - 'doesnotexist'
+
