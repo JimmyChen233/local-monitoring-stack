@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: velero-restore
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  releaseName: velero-restore
+  chart:
+    spec:
+      chart: ./manifests/velero/helm/velero-restore
+      sourceRef:
+        kind: GitRepository
+        name: k8s-work
+        namespace: flux-system
+      interval: 5m0s
+      reconcileStrategy: Revision # This one must also follow the Revision strategy, the restore job should be able to handle it.
+  valuesFrom:
+  - kind: ConfigMap
+    name: dsh-platform-config
+    valuesKey: values.yaml
+  - kind: ConfigMap
+    name: dsh-versions
+    valuesKey: values.yaml
+

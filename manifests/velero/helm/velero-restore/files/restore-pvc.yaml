@@ -1,0 +1,12 @@
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  labels:
+  name: restore-pvc
+  namespace: velero
+spec:
+  scheduleName: backup-base
+  backupName: ""
+  includedResources:
+    - pvc
+    - pv

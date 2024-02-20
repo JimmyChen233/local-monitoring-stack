@@ -1,0 +1,87 @@
+# 
+configuration:
+  # Cloud provider being used (e.g. aws, azure, gcp).
+  backupStorageLocation:
+  {{- if .Values.platform.aws }}
+    - name: aws
+      provider: aws
+      bucket:  {{ include "extract.bucketname" .Values.platform.backupBucket | quote }}
+      prefix: environments/{{ .Values.platform.name }}/velero/
+      default: true
+      config:
+        kmsKeyId: alias/{{ .Values.platform.name }}/velero
+  {{ else if .Values.platform.azure }} 
+    - provider: azure
+      bucket: {{ .Values.platform.azure.storageContainers.velero }}
+      default: true
+      config:
+        resourceGroup: {{ .Values.platform.azure.resourceGroups.base }}
+        storageAccount: {{ .Values.platform.azure.platformStorageAccount }}
+        subscriptionId: {{ .Values.platform.azure.subscriptionId }}
+        useAAD: "true"
+  {{ end }}
+{{- if .Values.platform.azure }}
+podLabels:
+  azure.workload.identity/use: "true"
+{{ end }}
+credentials:
+  useSecret: false 
+serviceAccount:
+  server:
+    create: true
+    name: velero-sa
+    annotations:
+    {{- if .Values.platform.aws }} 
+      eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.platform.aws.accountId }}:role/{{ .Values.platform.name }}-velero
+    {{ else if .Values.platform.azure }} 
+      azure.workload.identity/client-id: {{ .Values.platform.azure.workloadIdentities.velero }}
+    {{ end }}
+
+backupsEnabled: true
+snapshotsEnabled: false
+
+image:
+  repository: registry.cp.kpn-dsh.com/docker.io/velero/velero
+  tag: v1.11.0
+initContainers:
+  - name: velero-plugin-for-csi
+    image: registry.cp.kpn-dsh.com/docker.io/velero/velero-plugin-for-csi:v0.3.2
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+  {{- if .Values.platform.aws }}
+  - name: velero-plugin-for-aws
+    image: registry.cp.kpn-dsh.com/docker.io/velero/velero-plugin-for-aws:v1.6.1
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+  {{ else if .Values.platform.azure }} 
+  - name: velero-plugin-for-microsoft-azure
+    image: registry.cp.kpn-dsh.com/docker.io/velero/velero-plugin-for-microsoft-azure:v1.8.2
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+  {{ end }}
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 512Mi
+  limits:
+    cpu: null
+    memory: 512Mi
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      prometheus-selector-target: system-prometheus
+
+{{- define "extract.bucketname" -}}
+{{- $bList := splitList "//" . -}}
+{{ index $bList 1 -}}
+{{- end -}}

@@ -1,0 +1,24 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: backup-base
+  namespace: velero
+spec:
+  schedule: "51 * * * *"  
+  template:
+    snapshotVolumes: false
+    includedNamespaces:
+    - '*' 
+    includedResources: #we do a broad back-up without any filters, we do this selection in the restores. 
+    - secrets
+    - namespaces
+    - Certificates
+    - kafkaclusters
+    - configmaps
+    - pv 
+    - pvc
+    - clusters.postgresql.cnpg.io
+    excludedNamespaces:
+    - flux-system
+    - kube
+    - kube-system
