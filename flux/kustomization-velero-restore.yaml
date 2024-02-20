@@ -1,0 +1,22 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: velero-restore
+  namespace: flux-system
+spec:
+  force: false
+  interval: 5m0s
+  path: ./manifests/velero/kustomization/velero-restore
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-local-dev
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: velero-restore
+      namespace: flux-system
+  dependsOn:
+    - name: velero-setup
+    - name: kyverno
+    - name: dsh-versions
