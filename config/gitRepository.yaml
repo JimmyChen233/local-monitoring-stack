@@ -1,0 +1,13 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: k8s-local-dev
+  namespace: flux-system
+spec:
+  interval: 30s
+  ref:
+    branch: main
+  url: ssh://git@github.com/JimmyChen233/k8s-local-dev
+  secretRef:
+    name: k8s-local-dev
