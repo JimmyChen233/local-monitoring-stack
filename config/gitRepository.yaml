@@ -8,6 +8,6 @@ spec:
   interval: 30s
   ref:
     branch: main
-  url: https://github.com/JimmyChen233/k8s-local-dev.git
+  url: ssh://git@github.com/JimmyChen233/k8s-local-dev
   secretRef:
     name: k8s-local-dev
