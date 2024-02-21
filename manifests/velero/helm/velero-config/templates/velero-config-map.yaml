@@ -6,4 +6,60 @@ metadata:
   namespace: flux-system
 data:
   values.yaml: |
-{{ tpl (.Files.Get "files/velero-config.yaml") . | indent 4 }}
+    # 
+    configuration:
+      # Cloud provider being used (e.g. aws, azure, gcp).
+      backupStorageLocation:
+        - name: aws
+          provider: aws
+          bucket:  s3://jimmydevops4
+          prefix: k8s-local-dev/velero/
+          default: true
+          config:
+            region: ap-southeast-2
+            s3ForcePathStyle: "true"
+            serverSideEncryption: AES256 # Indicates using SSE-S3
+    credentials:
+      useSecret: true
+      secretContents:
+        cloud: |
+          [default]
+          aws_access_key_id=AKIAZMQUBWIHTCNWLSRS
+          aws_secret_access_key=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
+
+    backupsEnabled: true
+    snapshotsEnabled: false
+
+    image:
+      repository: velero/velero
+      tag: v1.11.0
+    initContainers:
+      - name: velero-plugin-for-csi
+        image: velero/velero-plugin-for-csi:v0.3.2
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
+      - name: velero-plugin-for-aws
+        image: velero/velero-plugin-for-aws:v1.6.1
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
+      
+    resources:
+      requests:
+        cpu: 50m
+        memory: 512Mi
+      limits:
+        cpu: null
+        memory: 512Mi
+
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          prometheus-selector-target: system-prometheus
+
+
