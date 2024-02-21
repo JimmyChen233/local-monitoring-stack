@@ -4,9 +4,6 @@ kind: ConfigMap
 metadata:
   name: velero-config
   namespace: flux-system
-  app.kubernetes.io/managed-by: Helm
-  meta.helm.sh/release-name: velero-config
-  meta.helm.sh/release-namespace: flux-system
 data:
   values.yaml: |
     # 
