@@ -18,5 +18,3 @@ spec:
       namespace: flux-system
   dependsOn:
     - name: velero-setup
-    - name: kyverno
-    - name: dsh-versions

@@ -17,6 +17,4 @@ spec:
       name: velero-backup
       namespace: flux-system
   dependsOn:
-    - name: kyverno # for adding the harbor image pull credentials
     - name: velero-restore
-    - name: dsh-other

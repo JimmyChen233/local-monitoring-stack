@@ -20,10 +20,3 @@ spec:
       kind: HelmRelease
       name: velero
       namespace: flux-system
-  dependsOn:
-    - name: dsh-secrets
-    - name: kyverno
-  postBuild:
-    substituteFrom:
-    - kind: Secret
-      name: registry-cp-kpn-dsh-com
