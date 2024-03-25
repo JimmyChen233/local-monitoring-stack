@@ -1,0 +1,4 @@
+addons:
+  metrics_api:
+    enabled: true
+  
