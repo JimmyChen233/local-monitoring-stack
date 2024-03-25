@@ -1,0 +1,6 @@
+terraform.tfstate*
+*pem
+*lock.hcl
+.terraform/
+.git/
+kind-kube-config*
