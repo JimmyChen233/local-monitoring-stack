@@ -1,0 +1,13 @@
+---
+- name: Deploy Kubernetes Addons
+  hosts: localhost
+  vars_files:
+    - vars.yaml
+
+  tasks:
+    - name: Install Metrics API
+      community.kubernetes.k8s:
+        state: present
+        src: ../addons/metrics-api/components.yaml
+      when: addons.metrics_api.enabled
+
