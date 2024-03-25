@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aria2
+spec:
+  selector:
+    matchLabels:
+      app: aria2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: aria2
+    spec:
+      containers:
+        - name: aria2
+          image: p3terx/aria2-pro
+          env:
+            - name: RPC_SECRET
+              value: "your_aria_rpc_token"
+            - name: RPC_PORT
+              value: "6800"
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: config
+          hostPath:
+            path: /path/on/host/aria2/config
+        - name: data
+          emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aria2
+spec:
+  type: NodePort
+  ports:
+    - port: 6800
+      targetPort: 6800
+      nodePort: 30680
+  selector:
+    app: aria2

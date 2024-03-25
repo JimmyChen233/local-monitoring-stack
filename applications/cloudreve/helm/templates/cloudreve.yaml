@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudreve
+spec:
+  selector:
+    matchLabels:
+      app: cloudreve
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cloudreve
+    spec:
+      containers:
+        - name: cloudreve
+          image: cloudreve/cloudreve:latest
+          ports:
+            - containerPort: 5212
+          volumeMounts:
+            - name: temp-data
+              mountPath: /data
+            - name: uploads
+              mountPath: /cloudreve/uploads
+            - name: conf
+              mountPath: /cloudreve/conf.ini
+            - name: db
+              mountPath: /cloudreve/cloudreve.db
+            - name: avatar
+              mountPath: /cloudreve/avatar
+      volumes:
+        - name: temp-data
+          emptyDir: {}
+        - name: uploads
+          hostPath:
+            path: /path/on/host/cloudreve/uploads
+        - name: conf
+          hostPath:
+            path: /path/on/host/cloudreve/conf.ini
+        - name: db
+          hostPath:
+            path: /path/on/host/cloudreve/cloudreve.db
+        - name: avatar
+          hostPath:
+            path: /path/on/host/cloudreve/avatar
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudreve
+spec:
+  type: NodePort
+  ports:
+    - port: 5212
+      targetPort: 5212
+      nodePort: 30012
+  selector:
+    app: cloudreve
