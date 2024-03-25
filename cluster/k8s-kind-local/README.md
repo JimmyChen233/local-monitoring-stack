@@ -34,8 +34,17 @@ cd cluster/k8s-kind-local
 terraform init
 terraform apply
 ```
-You should see a kube-config file is generated in this folder. The kube config is also output into ~/.kube/config. Now check you k8s cluster `kubectl config current-context`
+You should see a kube-config file is generated in this folder. The kube config is also output into ~/.kube/config, but sometimes it messes up once update. So, `export KUBECONFIG='./kind-kube-config.yaml'`
+Now check you k8s cluster `kubectl config current-context`
+
+Remeber to set it back `export KUBECONFIG='~/.kube/config'`
 
 # deploy k8s components
 to be continued...
 
+## Destroy (Optional)
+You don't have to destroy the local platform everyday, because it's cost-free and currently no restore option, which means you will lose all your work and unable to bring back...
+However, if you really screw it up, want to shup down and restart, you can do:
+```
+terraform destroy
+```

@@ -26,7 +26,7 @@ locals {
 }
 
 resource "kind_cluster" "default" {
-  name = "experiment"
+  name = "254-local-dev"
   kubeconfig_path = local.k8s_config_path
   node_image = "kindest/node:v1.23.4"
   wait_for_ready = true
