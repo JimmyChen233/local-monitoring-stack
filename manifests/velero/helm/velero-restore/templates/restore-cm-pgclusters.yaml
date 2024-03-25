@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: velero-pgclusters
-  namespace: velero
-data:
-  restore-pgclusters.yaml: |-
-{{ .Files.Get  "files/restore-pgclusters.yaml" | indent 4 -}}
