@@ -1,4 +1,0 @@
-apiVersion: v2
-name: cloudreve-helm
-description: A Helm chart for Cloudreve with Aria2
-version: 0.1.0

@@ -1,0 +1,18 @@
+redis:
+  image: bitnami/redis:latest
+  storage:
+    size: 1Gi
+
+cloudreve:
+  image: cloudreve/cloudreve:3.8.3
+  storage:
+    size: 5Gi
+
+aria2:
+  image: p3terx/aria2-pro
+  rpcSecret: your_aria_rpc_token
+  storage:
+    size: 1Gi
+
+tempdata:
+  size: 5Gi
