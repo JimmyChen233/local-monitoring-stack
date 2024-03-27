@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aria2
+  namespace: cloudreve
 spec:
   selector:
     matchLabels:
@@ -14,34 +15,23 @@ spec:
     spec:
       containers:
         - name: aria2
-          image: p3terx/aria2-pro
+          image: {{ .Values.aria2.image }}
           env:
             - name: RPC_SECRET
-              value: "your_aria_rpc_token"
+              value: {{ .Values.aria2.rpcSecret }}
             - name: RPC_PORT
               value: "6800"
+          ports:
+            - containerPort: 6800
           volumeMounts:
-            - name: config
+            - name: aria2-config
               mountPath: /config
-            - name: data
+            - name: temp-data
               mountPath: /data
       volumes:
-        - name: config
-          hostPath:
-            path: /path/on/host/aria2/config
-        - name: data
-          emptyDir: {}
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: aria2
-spec:
-  type: NodePort
-  ports:
-    - port: 6800
-      targetPort: 6800
-      nodePort: 30680
-  selector:
-    app: aria2
+        - name: aria2-config
+          persistentVolumeClaim:
+            claimName: aria2-config-pvc
+        - name: temp-data
+          persistentVolumeClaim:
+            claimName: temp-data-pvc
