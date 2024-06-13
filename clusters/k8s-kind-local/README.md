@@ -35,7 +35,7 @@ to be continued...
 
 # apply terraform
 ```
-cd cluster/k8s-kind-local
+cd clusters/k8s-kind-local
 terraform init
 terraform apply
 ```
