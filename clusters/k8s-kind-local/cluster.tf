@@ -1,5 +1,5 @@
 resource "kind_cluster" "default" {
-  name            = "254-local-dev"
+  name            = "kind-argocd"
   kubeconfig_path = local.k8s_config_path
   node_image      = "kindest/node:v1.23.4"
   wait_for_ready  = true
@@ -8,9 +8,6 @@ resource "kind_cluster" "default" {
     api_version = "kind.x-k8s.io/v1alpha4"
     node {
       role = "control-plane"
-    }
-    node {
-      role = "worker"
     }
     node {
       role = "worker"
