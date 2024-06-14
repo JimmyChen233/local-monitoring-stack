@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: zookeeper
+  namespace: argocd
+spec:
+  project: kafka-project
+  source:
+    repoURL: 'https://github.com/your-username/your-repo.git'
+    targetRevision: HEAD
+    path: 'zookeeper'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kafka
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

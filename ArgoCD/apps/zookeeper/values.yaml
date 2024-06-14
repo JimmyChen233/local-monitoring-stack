@@ -1,0 +1,18 @@
+replicaCount: 3
+
+image:
+  repository: zookeeper
+  tag: 3.6.3
+  pullPolicy: IfNotPresent
+
+serviceAccount:
+  create: true
+  name: ""
+
+rbac:
+  create: true
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
