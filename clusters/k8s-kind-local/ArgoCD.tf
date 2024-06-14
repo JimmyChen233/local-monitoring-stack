@@ -13,6 +13,7 @@ resource "helm_release" "argo" {
   chart      = "argo-cd" 
   namespace  = "argocd" 
   version    = "7.1.3"
+  depends_on = [kubectl_manifest.argocd_namespace]
 
 # An option for setting values that I generally use
 #   values = [jsonencode({
