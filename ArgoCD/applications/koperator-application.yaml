@@ -6,9 +6,9 @@ metadata:
 spec:
   project: kafka-project
   source:
-    repoURL: 'https://github.com/your-username/your-repo.git'
+    repoURL: 'https://github.com/JimmyChen233/k8s-dev-254.git'
     targetRevision: HEAD
-    path: 'kafka-operator'
+    path: 'ArgoCD/apps/koperator'
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: kafka

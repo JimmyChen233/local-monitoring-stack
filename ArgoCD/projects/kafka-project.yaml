@@ -6,7 +6,7 @@ metadata:
 spec:
   description: Kafka project
   sourceRepos:
-    - 'https://github.com/your-username/your-repo.git'
+    - 'https://github.com/JimmyChen233/k8s-dev-254.git'
   destinations:
     - namespace: '*'
       server: https://kubernetes.default.svc
