@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: banzaicloud/kafka-operator
-  tag: v0.25.1
+  tag: latest
   pullPolicy: IfNotPresent
 
 serviceAccount:
