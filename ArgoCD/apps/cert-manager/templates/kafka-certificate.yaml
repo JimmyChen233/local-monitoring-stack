@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kafka-certificate
+  namespace: kafka
+spec:
+  secretName: kafka-tls
+  issuerRef:
+    name: letsencrypt-issuer
+    kind: Issuer
+  commonName: kafka.example.com
+  dnsNames:
+    - kafka.example.com
+  duration: 24h
+  renewBefore: 12h
