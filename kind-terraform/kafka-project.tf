@@ -10,7 +10,7 @@ resource "kubectl_manifest" "argocd_namespaces" {
 }
 
 resource "kubectl_manifest" "argocd_crd" {
-  yaml_body = file("${path.module}/../ArgoCD/applications/CRD-application.yaml")
+  yaml_body = file("${path.module}/../ArgoCD/applications/crd-application.yaml")
   depends_on = []
 } 
 
