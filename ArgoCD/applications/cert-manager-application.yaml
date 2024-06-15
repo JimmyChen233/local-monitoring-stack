@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  project: kafka-project
+  source:
+    repoURL: 'https://github.com/JimmyChen233/k8s-dev-254.git'
+    targetRevision: HEAD
+    path: 'ArgoCD/apps/cert-manager'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cert-manager
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
