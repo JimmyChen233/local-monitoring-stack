@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: CRDs
+  namespace: argocd
+spec:
+  project: kafka-project
+  source:
+    repoURL: 'https://github.com/JimmyChen233/k8s-dev-254.git'
+    targetRevision: HEAD
+    path: 'ArgoCD/CRD'
+  destination:
+    server: 'https://kubernetes.default.svc'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
