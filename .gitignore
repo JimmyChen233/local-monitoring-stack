@@ -4,3 +4,6 @@ terraform.tfstate*
 .terraform/
 .git/
 kind-kube-config*
+*crt
+*csr
+*key
