@@ -21,3 +21,11 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
             {{ toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: webhook-cert
+              mountPath: /etc/webhook/certs
+              readOnly: true
+      volumes:
+        - name: webhook-cert
+          secret:
+            secretName: kafka-operator-webhook-cert
