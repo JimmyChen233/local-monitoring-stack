@@ -1,0 +1,16 @@
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kafka-operator-webhook-cert
+  namespace: kafka
+spec:
+  secretName: kafka-operator-webhook-cert
+  duration: 1h
+  renewBefore: 30m
+  commonName: kafka-operator
+  dnsNames:
+    - kafka-operator.kafka.svc
+  issuerRef:
+    name: ca-clusterissuer
+    kind: ClusterIssuer
