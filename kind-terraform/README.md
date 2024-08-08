@@ -53,3 +53,6 @@ However, if you really screw it up, want to shup down and restart, you can do:
 ```
 terraform destroy
 ```
+
+## ArgoCD
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
