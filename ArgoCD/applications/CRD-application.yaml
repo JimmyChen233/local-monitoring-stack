@@ -4,7 +4,7 @@ metadata:
   name: crds
   namespace: argocd
 spec:
-  project: kafka-project
+  project: default-project
   source:
     repoURL: 'https://github.com/JimmyChen233/k8s-dev-254.git'
     targetRevision: HEAD
