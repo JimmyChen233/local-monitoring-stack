@@ -14,6 +14,16 @@ resource "kubectl_manifest" "argocd_crd" {
   depends_on = []
 } 
 
+resource "kubectl_manifest" "argocd_prometheus_application" {
+  count = var.deploy_cert_manager ? 1 : 0
+  yaml_body = file("${path.module}/../ArgoCD/applications/prometheus-application.yaml")
+  depends_on = [
+    kubectl_manifest.argocd_kafka_project,
+    kubectl_manifest.argocd_namespaces,
+    kubectl_manifest.argocd_crd
+  ]
+}
+
 resource "kubectl_manifest" "argocd_cert_manager_application" {
   count = var.deploy_cert_manager ? 1 : 0
   yaml_body = file("${path.module}/../ArgoCD/applications/cert-manager-application.yaml")
