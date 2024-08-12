@@ -39,7 +39,10 @@ cd clusters/k8s-kind-local
 terraform init
 terraform apply
 ```
-You should see a kube-config file is generated in this folder. The kube config is also output into ~/.kube/config, but sometimes it messes up once update. So, `export KUBECONFIG='./kind-kube-config.yaml'`
+You should see a kube-config file is generated in this folder. The kube config is also output into ~/.kube/config, but sometimes it messes up once update. So, 
+```
+export KUBECONFIG="/Users/$(whoami)/Desktop/WorkDir/k8s-dev-254/kind-terraform/kind-kube-config.yaml"
+```
 Now check you k8s cluster `kubectl config current-context`
 
 Remeber to set it back `export KUBECONFIG='~/.kube/config'`
@@ -56,3 +59,5 @@ terraform destroy
 
 ## ArgoCD
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+echo "Users/$(whoami)/Desktop/WorkDir/k8s-dev-254/kind-terraform/kind-kube-config.yaml"

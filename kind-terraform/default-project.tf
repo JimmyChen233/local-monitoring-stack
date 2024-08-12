@@ -1,17 +1,17 @@
 
 resource "kubectl_manifest" "argocd_default_project" {
   yaml_body = file("${path.module}/../ArgoCD/projects/default-project.yaml")
-  depends_on = []
+  depends_on = [helm_release.argo]
 }
 
 resource "kubectl_manifest" "argocd_namespaces" {
   yaml_body = file("${path.module}/../ArgoCD/applications/namespace-application.yaml")
-  depends_on = []
+  depends_on = [helm_release.argo]
 }
 
 resource "kubectl_manifest" "argocd_crd" {
   yaml_body = file("${path.module}/../ArgoCD/applications/crd-application.yaml")
-  depends_on = []
+  depends_on = [helm_release.argo]
 } 
 
 resource "kubectl_manifest" "argocd_prometheus_application" {
