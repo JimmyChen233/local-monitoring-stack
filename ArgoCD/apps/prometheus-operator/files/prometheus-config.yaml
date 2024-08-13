@@ -178,19 +178,20 @@ prometheus:
     {{- end }}
     image:
       registry: registry.cp.kpn-dsh.com/quay.io
+    {{ $promMemory := .Values.prometheus.resources.memory }}
     resources:
       requests:
         cpu: {{ .Values.prometheus.resources.cpu }}
-        memory: {{ .Values.prometheus.resources.memory }}
+        memory: {{ $promMemory }}
       limits:
-        memory: {{ .Values.prometheus.resources.memory }}
+        memory: {{ $promMemory }}
     containers:
     - name: "prometheus"
-      #env:
-      #- name: GOMEMLIMIT
+      env:
+      - name: GOMEMLIMIT
         # set GOMEMLIMIT: https://weaviate.io/blog/gomemlimit-a-game-changer-for-high-memory-applications
         # this is a complex function to automatically set this to 80% of what the pod limit is.
-        # value: "{{ floor (mulf (mulf (trimSuffix "Gi" $promMemory) 1024) 0.8) }}MiB"
+        value: "{{ floor (mulf (mulf (trimSuffix "Gi" $promMemory) 1024) 0.8) }}MiB"
     replicas: {{ .Values.prometheus.replicas }}
     enableRemoteWriteReceiver: false
     enableAdminAPI: false
