@@ -6,7 +6,7 @@ metadata:
 spec:
   project: kafka-project
   source:
-    repoURL: 'https://github.com/JimmyChen233/k8s-dev-254.git'
+    repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
     targetRevision: HEAD
     path: 'ArgoCD/apps/zookeeper'
   destination:
