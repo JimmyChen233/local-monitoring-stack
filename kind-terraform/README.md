@@ -8,7 +8,7 @@ make sure you have homebrew :wink:
 1. docker
 ```
 brew install docker
-# It is not verified yet because I installed it ages ago. Feel free to update
+
 ```
 
 2. k8s
@@ -41,7 +41,7 @@ terraform apply
 ```
 You should see a kube-config file is generated in this folder. The kube config is also output into ~/.kube/config, but sometimes it messes up once update. So, 
 ```
-export KUBECONFIG="/Users/$(whoami)/Desktop/WorkDir/k8s-dev-254/kind-terraform/kind-kube-config.yaml"
+export KUBECONFIG="/Users/$(whoami)/YourWorkDir/k8s-dev-254/kind-terraform/kind-kube-config.yaml"
 ```
 Now check you k8s cluster `kubectl config current-context`
 
@@ -51,13 +51,13 @@ Remeber to set it back `export KUBECONFIG='~/.kube/config'`
 to be continued...
 
 ## Destroy (Optional)
-You don't have to destroy the local platform everyday, because it's cost-free and currently no restore option, which means you will lose all your work and unable to bring back :firecracker:
-However, if you really screw it up, want to shup down and restart, you can do:
 ```
 terraform destroy
 ```
 
 ## ArgoCD
+default user is admin
+# get argocd pw
+```
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-
-echo "Users/$(whoami)/Desktop/WorkDir/k8s-dev-254/kind-terraform/kind-kube-config.yaml"
+```
