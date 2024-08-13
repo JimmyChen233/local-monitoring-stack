@@ -4,11 +4,11 @@ metadata:
   name: grafana-operator
   namespace: argocd
 spec:
-  project: kafka-project
+  project: default-project
   source:
-    repoURL: 'https://github.com/JimmyChen233/k8s-dev-254.git'
-    targetRevision: HEAD
-    path: 'ArgoCD/apps/grafana-operator'
+    repoURL: oci://ghcr.io/grafana/helm-charts
+    targetRevision: 5.12.0ß
+    chart: grafana-operator 
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: monitoring
@@ -16,3 +16,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - Validate=false
