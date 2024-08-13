@@ -3,7 +3,7 @@
 
 ## Overview
 
-This project aims to set up Kubernetes development clusters that serves as a sandbox environment for Development (DEV), Data Engineering (DE), Site Reliability Engineering (SRE), and DevOps teams. The goal is to provide a platform where team members can add, experiment with, and explore new features and functionalities easily.
+This project aims to set up Kubernetes development clusters that serves as a playground for developers. The goal is to provide a platform where team members can add, experiment with, and explore new features and functionalities easily.
 
 ## Addons
 Any features && plugins that you want to try in the cluster
