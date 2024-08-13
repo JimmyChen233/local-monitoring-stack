@@ -5,4 +5,4 @@ metadata:
   namespace: monitoring
 data:
   values.yaml: |-
-    {{ tpl (.Files.Get "files/prometheus-config.yaml") . | indent 4 }}
+{{ tpl (.Files.Get "files/prometheus-config.yaml") . | indent 4 }}
