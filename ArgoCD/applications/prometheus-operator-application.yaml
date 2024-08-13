@@ -3,12 +3,17 @@ kind: Application
 metadata:
   name: prometheus-operator
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default-project
-  source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 61.8.0
-    chart: kube-prometheus-stack 
+  sources:
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      targetRevision: 61.8.0
+      chart: kube-prometheus-stack
+    - repoURL: 'https://github.com/JimmyChen233/k8s-dev-254.git'
+      targetRevision: HEAD
+      path: 'ArgoCD/apps/prometheus-operator'
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: monitoring
