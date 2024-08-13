@@ -7,7 +7,7 @@ spec:
   project: default-project
   source:
     repoURL: ghcr.io/grafana/helm-charts
-    targetRevision: 5.12.0
+    targetRevision: v5.12.0
     chart: grafana-operator 
   destination:
     server: 'https://kubernetes.default.svc'
