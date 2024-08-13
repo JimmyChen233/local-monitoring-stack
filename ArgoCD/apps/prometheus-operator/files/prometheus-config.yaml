@@ -170,7 +170,6 @@ prometheus:
     enabled: true
   prometheusSpec:
     logLevel: info
-    {{- $promMemory := .Values.prometheus.resources.memory -}}
     {{- range list "serviceMonitor" "podMonitor" "rule" "probe" "scrapeConfig" }}
     {{ . }}NamespaceSelector: {}
     {{ . }}Selector:
@@ -182,16 +181,16 @@ prometheus:
     resources:
       requests:
         cpu: {{ .Values.prometheus.resources.cpu }}
-        memory: {{ $promMemory }}
+        memory: {{ .Values.prometheus.resources.memory }}
       limits:
-        memory: {{ $promMemory }}
+        memory: {{ .Values.prometheus.resources.memory }}
     containers:
     - name: "prometheus"
       env:
       - name: GOMEMLIMIT
         # set GOMEMLIMIT: https://weaviate.io/blog/gomemlimit-a-game-changer-for-high-memory-applications
         # this is a complex function to automatically set this to 80% of what the pod limit is.
-        value: "{{ floor (mulf (mulf (trimSuffix "Gi" $promMemory) 1024) 0.8) }}MiB"
+        value: "{{ floor (mulf (mulf (trimSuffix "Gi" .Values.prometheus.resources.memory) 1024) 0.8) }}MiB"
     replicas: {{ .Values.prometheus.replicas }}
     enableRemoteWriteReceiver: false
     enableAdminAPI: false
