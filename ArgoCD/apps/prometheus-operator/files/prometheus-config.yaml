@@ -170,7 +170,7 @@ prometheus:
     enabled: true
   prometheusSpec:
     logLevel: info
-    {{- $promMemory := .Values.prometheus.resources.memory }}
+    {{- $promMemory := .Values.prometheus.resources.memory -}}
     {{- range list "serviceMonitor" "podMonitor" "rule" "probe" "scrapeConfig" }}
     {{ . }}NamespaceSelector: {}
     {{ . }}Selector:
