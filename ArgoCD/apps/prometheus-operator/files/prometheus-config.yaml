@@ -170,6 +170,7 @@ prometheus:
     enabled: true
   prometheusSpec:
     logLevel: info
+    {{- $promMemory := .Values.prometheus.resources.memory }}
     {{- range list "serviceMonitor" "podMonitor" "rule" "probe" "scrapeConfig" }}
     {{ . }}NamespaceSelector: {}
     {{ . }}Selector:
@@ -178,7 +179,6 @@ prometheus:
     {{- end }}
     image:
       registry: registry.cp.kpn-dsh.com/quay.io
-    {{ $promMemory := .Values.prometheus.resources.memory }}
     resources:
       requests:
         cpu: {{ .Values.prometheus.resources.cpu }}
