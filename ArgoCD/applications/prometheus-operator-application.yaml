@@ -11,9 +11,12 @@ spec:
     - repoURL: https://prometheus-community.github.io/helm-charts
       targetRevision: 61.8.0
       chart: kube-prometheus-stack
+      helm:
+        valueFiles:
+        - $values/ArgoCD/apps/prometheus-operator/files/prometheus-config.yaml
     - repoURL: 'https://github.com/JimmyChen233/k8s-dev-254.git'
       targetRevision: HEAD
-      path: 'ArgoCD/apps/prometheus-operator'
+      ref: values
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: monitoring
