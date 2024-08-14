@@ -170,12 +170,26 @@ prometheus:
     enabled: true
   prometheusSpec:
     logLevel: info
-    {{- range list "serviceMonitor" "podMonitor" "rule" "probe" "scrapeConfig" }}
-    {{ . }}NamespaceSelector: {}
-    {{ . }}Selector:
+    serviceMonitorNamespaceSelector: {}
+    serviceMonitorSelector:
       matchLabels:
         prometheus-selector-target: system-prometheus
-    {{- end }}
+    podMonitorNamespaceSelector: {}
+    podMonitorSelector:
+      matchLabels:
+        prometheus-selector-target: system-prometheus
+    ruleNamespaceSelector: {}
+    ruleSelector:
+      matchLabels:
+        prometheus-selector-target: system-prometheus
+    probeNamespaceSelector: {}
+    probeSelector:
+      matchLabels:
+        prometheus-selector-target: system-prometheus
+    scrapeConfigNamespaceSelector: {}
+    scrapeConfigSelector:
+      matchLabels:
+        prometheus-selector-target: system-prometheus
     image:
       registry: registry.cp.kpn-dsh.com/quay.io
     resources:
