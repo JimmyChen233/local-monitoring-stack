@@ -170,26 +170,12 @@ prometheus:
     enabled: true
   prometheusSpec:
     logLevel: info
-    serviceMonitorNamespaceSelector: {}
-    serviceMonitorSelector:
+    {{- range list "serviceMonitor" "podMonitor" "rule" "probe" "scrapeConfig" }}
+    {{ . }}NamespaceSelector: {}
+    {{ . }}Selector:
       matchLabels:
         prometheus-selector-target: system-prometheus
-    podMonitorNamespaceSelector: {}
-    podMonitorSelector:
-      matchLabels:
-        prometheus-selector-target: system-prometheus
-    ruleNamespaceSelector: {}
-    ruleSelector:
-      matchLabels:
-        prometheus-selector-target: system-prometheus
-    probeNamespaceSelector: {}
-    probeSelector:
-      matchLabels:
-        prometheus-selector-target: system-prometheus
-    scrapeConfigNamespaceSelector: {}
-    scrapeConfigSelector:
-      matchLabels:
-        prometheus-selector-target: system-prometheus
+    {{- end }}
     image:
       registry: registry.cp.kpn-dsh.com/quay.io
     resources:
@@ -202,7 +188,9 @@ prometheus:
     - name: "prometheus"
       env:
       - name: GOMEMLIMIT
-        value: "819MiB"
+        # set GOMEMLIMIT: https://weaviate.io/blog/gomemlimit-a-game-changer-for-high-memory-applications
+        # this is a complex function to automatically set this to 80% of what the pod limit is.
+        value: "{{ floor (mulf (mulf (trimSuffix "Gi" .Values.prometheus.resources.memory) 1024) 0.8) }}MiB"
     replicas: {{ .Values.prometheus.replicas }}
     enableRemoteWriteReceiver: false
     enableAdminAPI: false
