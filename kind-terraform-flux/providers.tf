@@ -34,10 +34,10 @@ provider "helm" {
 
 provider "flux" {
   kubernetes = {
-    host                   = kind_cluster.this.endpoint
-    client_certificate     = kind_cluster.this.client_certificate
-    client_key             = kind_cluster.this.client_key
-    cluster_ca_certificate = kind_cluster.this.cluster_ca_certificate
+    host                   = kind_cluster.default.endpoint
+    client_certificate     = kind_cluster.default.client_certificate
+    client_key             = kind_cluster.default.client_key
+    cluster_ca_certificate = kind_cluster.default.cluster_ca_certificate
   }
   git = {
     url = "https://github.com/${var.github_org}/${var.github_repository}.git"
@@ -54,10 +54,10 @@ provider "github" {
 }
 
 provider "kubectl" {
-  host = "${kind_cluster.this.endpoint}"
-  cluster_ca_certificate = "${kind_cluster.this.cluster_ca_certificate}"
-  client_certificate = "${kind_cluster.this.client_certificate}"
-  client_key = "${kind_cluster.this.client_key}"
+  host = "${kind_cluster.default.endpoint}"
+  cluster_ca_certificate = "${kind_cluster.default.cluster_ca_certificate}"
+  client_certificate = "${kind_cluster.default.client_certificate}"
+  client_key = "${kind_cluster.default.client_key}"
   load_config_file = true
   config_path      = local.k8s_config_path
 }

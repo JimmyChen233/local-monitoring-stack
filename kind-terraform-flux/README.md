@@ -61,3 +61,10 @@ default user is admin
 ```
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
+
+flux bootstrap github \
+  --owner=$GITHUB_USER \
+  --repository=k8s-dev-254 \
+  --branch=main \
+  --path=clusters/my-cluster
+  --personal
