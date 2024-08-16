@@ -1,0 +1,108 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: prometheus-configuration
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  releaseName: prometheus-configuration
+  chart:
+    spec:
+      chart: ./manifests/prometheus/helm
+      sourceRef:
+        kind: GitRepository
+        name: k8s-work
+        namespace: flux-system
+      interval: 5m0s
+      reconcileStrategy: Revision
+  valuesFrom:
+    - kind: ConfigMap
+      name: dsh-platform-config
+      valuesKey: values.yaml
+    - kind: ConfigMap
+      name: dsh-versions
+      valuesKey: values.yaml
+    - kind: Secret
+      name: monitoring-grafana
+      targetPath: signingSecret
+      valuesKey: signingSecret
+    - kind: Secret
+      name: monitoring-grafana
+      targetPath: keycloakClientForwardAuthSecret
+      valuesKey: keycloakClientForwardAuthSecret
+    - kind: Secret
+      name: cert-data-thanos-receive
+      targetPath: thanosReceiveCert
+      valuesKey: tls.crt
+    - kind: Secret
+      name: cert-data-thanos-receive
+      targetPath: thanosReceiveKey
+      valuesKey: tls.key
+    - kind: Secret
+      name: alertmanager-auth
+      targetPath: alertmanager.username
+      valuesKey: username
+    - kind: Secret
+      name: alertmanager-auth
+      targetPath: alertmanager.password
+      valuesKey: password
+    - kind: Secret
+      name: cert-data-thanos-receive
+      targetPath: thanosReceiveCert
+      valuesKey: tls.crt
+    - kind: Secret
+      name: cert-data-thanos-receive
+      targetPath: thanosReceiveKey
+      valuesKey: tls.key
+    - kind: Secret
+      name: alertmanager-auth
+      targetPath: alertmanager.username
+      valuesKey: username
+    - kind: Secret
+      name: alertmanager-auth
+      targetPath: alertmanager.password
+      valuesKey: password
+    - kind: Secret
+      name: cert-data-monitoring-public
+      targetPath: monitoring.cert.public.crt
+      valuesKey: crt
+      optional: true
+    - kind: Secret
+      name: cert-data-monitoring-public
+      targetPath: monitoring.cert.public.key
+      valuesKey: key
+      optional: true
+    - kind: Secret
+      name: cert-data-monitoring-private
+      targetPath: monitoring.cert.private.crt
+      valuesKey: crt
+      optional: true
+    - kind: Secret
+      name: cert-data-monitoring-private
+      targetPath: monitoring.cert.private.key
+      valuesKey: key
+      optional: true
+    - kind: Secret
+      name: monitoring-grafana
+      targetPath: keycloakClientSecret
+      valuesKey: keycloakClientSecret
+    - kind: Secret
+      name: monitoring-karma
+      targetPath: karma.signingSecret
+      valuesKey: signingSecret
+      optional: false
+    - kind: Secret
+      name: monitoring-karma
+      targetPath: karma.keycloakClientForwardAuthSecret
+      valuesKey: keycloakClientForwardAuthSecret
+      optional: false
+    - kind: ConfigMap
+      name: prometheus-configuration-helm-overrides
+      optional: true
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      retries: -1

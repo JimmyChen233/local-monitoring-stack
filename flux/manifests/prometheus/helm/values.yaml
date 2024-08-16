@@ -1,0 +1,108 @@
+# Default values for prometheus chart
+karma:
+  version: v0.114
+  resources:
+    cpu: 50m
+    memory: 256Mi
+
+prometheus:
+  #This default value has to match the one specified at .manifests/tempo/helm/values.yaml. Please don't commit them with different values
+  replicas: 2
+  resources:
+    cpu: 200m
+    memory: 1Gi
+  storage: 1Gi
+
+thanosSidecar:
+  version: v0.33.0
+  resources:  # for thanos-sidecar in prometheus pod
+    cpu: 100m
+    memory: 256Mi
+
+prometheusNodeExporter:
+  resources:
+    cpu: 50m
+    memory: 64Mi
+
+prometheusOperator:
+  resources:
+    cpu: 50m
+    memory: 100Mi
+
+promfederate:
+  version: v2.44.0
+  resources:
+    cpu: 100m
+    memory: 3Gi
+  storage: 50Gi
+
+thanosCompactor:
+  resources:
+    cpu: 200m
+    memory: 2Gi
+
+thanosQuery:
+  resources:
+    cpu: 200m
+    memory: 4Gi
+
+thanosQueryFrontend:
+  resources:
+    cpu: 100m
+    memory: 4Gi
+
+thanosStorageGateway:
+  resources:
+    cpu: 200m
+    memory: 2Gi
+
+monitoringForwardAuth:
+  replicas: 1
+  resources:
+    cpu: 100m
+    memory: 128Mi
+
+pkiTokenFile:
+  path: /var/run/secrets/tokens
+  name: pki-token
+
+grafanaImageRenderer:
+  version: 3.9.0
+  resources:
+    cpu: 150m
+    memory: 256Mi
+
+karmaForwardAuth:
+  replicas: 1
+  resources:
+    cpu: 100m
+    memory: 128Mi
+
+alertmanager:
+  enabled: true
+
+grafanaDashboards:
+#- alertmanager-overview
+- apiserver
+- cluster-total
+#- etcd
+#- grafana-overview
+- k8s-coredns
+- k8s-resources-cluster
+#- k8s-resources-multicluster
+- k8s-resources-namespace
+- k8s-resources-node
+- k8s-resources-pod
+- k8s-resources-workload
+- k8s-resources-workloads-namespace
+- kubelet
+- namespace-by-pod
+- namespace-by-workload
+- node-cluster-rsrc-use
+- node-rsrc-use
+- nodes
+#- nodes-darwin
+- persistentvolumesusage
+- pod-total
+- prometheus
+- workload-total
