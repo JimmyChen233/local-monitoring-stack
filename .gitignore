@@ -7,3 +7,4 @@ kind-kube-config*
 *crt
 *csr
 *key
+*tfvars

@@ -33,7 +33,7 @@ resource "helm_release" "argo" {
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd" 
   namespace  = "argocd" 
-  version    = "7.1.3"
+  version    = "7.4.3"
   depends_on = [kubectl_manifest.argocd_namespace,kubectl_manifest.oci_secret]
 
 # An option for setting values that I generally use
