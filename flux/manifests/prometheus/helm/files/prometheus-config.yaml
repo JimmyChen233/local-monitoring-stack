@@ -33,9 +33,9 @@ defaultRules:
     prometheus-selector-target: system-prometheus
   enabled: true
   rules:
-    kubernetesApps: true  # we put a custom version in our on monitoring repo
-    kubeApiserverHistogram: true  # creates a lot of load
-    kubeApiserverSlos: true  # creates a lot of load
+    kubernetesApps: true
+    kubeApiserverHistogram: true
+    kubeApiserverSlos: true
   disabled:
     InfoInhibitor: true
     KubePersistentVolumeFillingUp: true
@@ -44,7 +44,7 @@ alertmanager:
   enabled: {{.Values.alertmanager.enabled}}
 
 grafana:
-  enabled: false
+  enabled: true
   forceDeployDashboards: true
 
 kubelet:
@@ -124,7 +124,6 @@ kubeEtcd:
       prometheus-selector-target: system-prometheus
 kubeScheduler:
   enabled: false
-  # we don't have it running
 kubeProxy:
   enabled: false
 kubeStateMetrics:
