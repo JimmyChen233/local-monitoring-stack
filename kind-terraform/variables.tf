@@ -1,19 +1,13 @@
-variable "deploy_cert_manager" {
-  description = "Enable deployment of cert-manager"
+variable "deploy_prometheus_operator" {
+  description = "Enable deployment of prometheus-operator"
   type        = bool
-  default     = false
+  default     = true
 }
 
-variable "deploy_zookeeper" {
-  description = "Enable deployment of Zookeeper"
+variable "deploy_grafana_operator" {
+  description = "Enable deployment of grafana-operator"
   type        = bool
-  default     = false
-}
-
-variable "deploy_koperator" {
-  description = "Enable deployment of Kafka operator"
-  type        = bool
-  default     = false
+  default     = true
 }
 
 variable "github_token" {
