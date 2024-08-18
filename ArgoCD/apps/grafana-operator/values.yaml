@@ -8,4 +8,4 @@ resources:
 serviceMonitor:
   enabled: true
   additionalLabels:
-    prometheus-selector-target: system-prometheus
+    prometheus-selector-target: cp-prometheus
