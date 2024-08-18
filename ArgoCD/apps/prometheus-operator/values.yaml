@@ -3621,6 +3621,10 @@ prometheus:
     serviceMonitorSelector:
       matchLabels:
         prometheus-selector-target: cp-prometheus
+    serviceMonitorNamespaceSelector:
+      matchNames:
+      - kube-system
+      - monitoring
 
     ## Namespaces to be selected for ServiceMonitor discovery.
     ##
