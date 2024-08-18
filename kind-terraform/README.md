@@ -34,6 +34,7 @@ to be continued...
 ## Launch the local dev platform
 
 # apply terraform
+before apply, you need tocreate a terraform.tfvars file and enable to applications you want to deploy --> see variables.tf
 ```
 cd clusters/k8s-kind-local
 terraform init
@@ -48,7 +49,7 @@ Now check you k8s cluster `kubectl config current-context`
 Remeber to set it back `export KUBECONFIG='~/.kube/config'`
 
 # deploy k8s components
-to be continued...
+
 
 ## Destroy (Optional)
 ```
