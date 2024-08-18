@@ -17,6 +17,12 @@ spec:
       helm:
         valueFiles:
         - $values/ArgoCD/apps/prometheus-operator/values.yaml
+    - repoURL: https://kubernetes-sigs.github.io/metrics-server
+      targetRevision: 0.6.4
+      chart: metrics-server
+      helm:
+        valueFiles:
+        - $values/ArgoCD/apps/prometheus-operator/metrics-server/values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: monitoring

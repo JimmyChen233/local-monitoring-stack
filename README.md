@@ -11,6 +11,9 @@ Any features && plugins that you want to try in the cluster
 ## ArgoCD
 GitOps approach to deploy applications on the cluster
 
+## Flux
+...not finished yet
+
 ## Clusters
 # kind-terraform
 A basic demo cluster running locally with kind, with a control-plane and 2 worker nodes
