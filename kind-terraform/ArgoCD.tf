@@ -35,9 +35,4 @@ resource "helm_release" "argo" {
   namespace  = "argocd" 
   version    = "7.4.3"
   depends_on = [kubectl_manifest.argocd_namespace,kubectl_manifest.oci_secret]
-
-# An option for setting values that I generally use
-#   values = [jsonencode({
-#     someKey = "someValue"
-#   })]
 }
