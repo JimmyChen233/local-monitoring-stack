@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prometheus-operator
+  name: blackbox-exporter
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -12,17 +12,11 @@ spec:
       targetRevision: HEAD
       ref: values
     - repoURL: https://prometheus-community.github.io/helm-charts
-      targetRevision: 61.8.0
-      chart: kube-prometheus-stack
+      targetRevision: 9.0.0
+      chart: prometheus-blackbox-exporter
       helm:
         valueFiles:
-        - $values/ArgoCD/apps/prometheus-operator/values.yaml
-    - repoURL: https://kubernetes-sigs.github.io/metrics-server
-      targetRevision: 3.12.1
-      chart: metrics-server
-      helm:
-        valueFiles:
-        - $values/ArgoCD/apps/prometheus-operator/metrics-server/values.yaml
+        - $values/ArgoCD/apps/blackbox-exporter/values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: monitoring

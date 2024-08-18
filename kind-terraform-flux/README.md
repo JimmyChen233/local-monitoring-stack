@@ -34,7 +34,6 @@ to be continued...
 ## Launch the local dev platform
 
 # apply terraform
-before apply, you need tocreate a terraform.tfvars file and enable to applications you want to deploy --> see variables.tf
 ```
 cd clusters/k8s-kind-local
 terraform init
@@ -49,7 +48,7 @@ Now check you k8s cluster `kubectl config current-context`
 Remeber to set it back `export KUBECONFIG='~/.kube/config'`
 
 # deploy k8s components
-
+to be continued...
 
 ## Destroy (Optional)
 ```
@@ -62,3 +61,10 @@ default user is admin
 ```
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
+
+flux bootstrap github \
+  --owner=$GITHUB_USER \
+  --repository=k8s-dev-254 \
+  --branch=main \
+  --path=clusters/my-cluster
+  --personal

@@ -33,9 +33,9 @@ defaultRules:
     prometheus-selector-target: system-prometheus
   enabled: true
   rules:
-    kubernetesApps: true  # we put a custom version in our on monitoring repo
-    kubeApiserverHistogram: true  # creates a lot of load
-    kubeApiserverSlos: true  # creates a lot of load
+    kubernetesApps: true
+    kubeApiserverHistogram: true
+    kubeApiserverSlos: true
   disabled:
     InfoInhibitor: true
     KubePersistentVolumeFillingUp: true
@@ -44,7 +44,7 @@ alertmanager:
   enabled: {{.Values.alertmanager.enabled}}
 
 grafana:
-  enabled: false
+  enabled: true
   forceDeployDashboards: true
 
 kubelet:
@@ -124,7 +124,6 @@ kubeEtcd:
       prometheus-selector-target: system-prometheus
 kubeScheduler:
   enabled: false
-  # we don't have it running
 kubeProxy:
   enabled: false
 kubeStateMetrics:
@@ -186,11 +185,11 @@ prometheus:
         memory: {{ .Values.prometheus.resources.memory }}
     containers:
     - name: "prometheus"
-      #env:
-      #- name: GOMEMLIMIT
+      env:
+      - name: GOMEMLIMIT
         # set GOMEMLIMIT: https://weaviate.io/blog/gomemlimit-a-game-changer-for-high-memory-applications
         # this is a complex function to automatically set this to 80% of what the pod limit is.
-        # value: "{{ floor (mulf (mulf (trimSuffix "Gi" $promMemory) 1024) 0.8) }}MiB"
+        value: "{{ floor (mulf (mulf (trimSuffix "Gi" .Values.prometheus.resources.memory) 1024) 0.8) }}MiB"
     replicas: {{ .Values.prometheus.replicas }}
     enableRemoteWriteReceiver: false
     enableAdminAPI: false

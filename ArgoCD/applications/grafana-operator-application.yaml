@@ -5,10 +5,16 @@ metadata:
   namespace: argocd
 spec:
   project: default-project
-  source:
-    repoURL: ghcr.io/grafana/helm-charts
-    targetRevision: v5.12.0
-    chart: grafana-operator 
+  sources:
+    - repoURL: 'https://github.com/JimmyChen233/k8s-dev-254.git'
+      targetRevision: HEAD
+      ref: values
+    - repoURL: ghcr.io/grafana/helm-charts
+      targetRevision: v5.12.0
+      chart: grafana-operator
+      helm:
+        valueFiles:
+        - $values/ArgoCD/apps/grafana-operator/values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: monitoring

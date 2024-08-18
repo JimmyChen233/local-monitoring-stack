@@ -1,7 +1,7 @@
 resource "kind_cluster" "default" {
-  name            = "kind-argocd"
+  name            = "kind-flux"
   kubeconfig_path = local.k8s_config_path
-  node_image      = "kindest/node:v1.25.0"
+  node_image      = "kindest/node:v1.31.0"
   wait_for_ready  = true
   kind_config {
     kind        = "Cluster"
