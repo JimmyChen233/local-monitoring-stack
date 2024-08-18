@@ -42,16 +42,24 @@ terraform apply
 ```
 You should see a kube-config file is generated in this folder. The kube config is also output into ~/.kube/config, but sometimes it messes up once update. So, 
 ```
-export KUBECONFIG="/Users/$(whoami)/YourWorkDir/k8s-dev-254/kind-terraform/kind-kube-config.yaml"
+export KUBECONFIG="/Users/$(whoami)/YourWorkDir/local-monitoring-stack/kind-terraform/kind-kube-config.yaml"
 ```
 Now check you k8s cluster `kubectl config current-context`
 
 Remeber to set it back `export KUBECONFIG='~/.kube/config'`
 
-# deploy k8s components
-
+# deploy new k8s components
+1. add a terraform argocd application block in /kind-terraform/default-project.tf, and "deploy_*" variable
+2. add an *-application.yaml file in /ArgoCD/applications. If the helm chart is from another repo, make sure that repo url is configured as sourceRep in /ArgoCD/projects/default-project.yaml. If custom helm values is needed, add a folder under /ArgoCD/apps
+3. terraform apply
 
 ## Destroy (Optional)
+delete an application
+```
+kubectl -n argocd delete application *
+```
+
+destroy whole cluster
 ```
 terraform destroy
 ```
