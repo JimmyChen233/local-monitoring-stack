@@ -1,0 +1,11 @@
+# docs: https://grafana.github.io/grafana-operator/docs/installation/helm/
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    memory: 256Mi
+serviceMonitor:
+  enabled: true
+  additionalLabels:
+    prometheus-selector-target: system-prometheus
