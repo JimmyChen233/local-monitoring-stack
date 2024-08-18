@@ -3618,13 +3618,13 @@ prometheus:
     ## ServiceMonitors to be selected for target discovery.
     ## If {}, select all ServiceMonitors
     ##
-    serviceMonitorSelector:
-      matchLabels:
-        prometheus-selector-target: cp-prometheus
-    serviceMonitorNamespaceSelector:
-      matchNames:
-      - kube-system
-      - monitoring
+    serviceMonitorSelector: {}
+      # matchLabels:
+      #   prometheus-selector-target: cp-prometheus
+    serviceMonitorNamespaceSelector: {}
+      # matchNames:
+      # - kube-system
+      # - monitoring
 
     podMonitorSelectorNilUsesHelmValues: true
 
