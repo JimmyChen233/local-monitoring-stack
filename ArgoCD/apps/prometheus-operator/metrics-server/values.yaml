@@ -4,3 +4,5 @@ resources:
     memory: 200Mi
   limits:
     memory: 200Mi
+args:
+  - --kubelet-insecure-tls
