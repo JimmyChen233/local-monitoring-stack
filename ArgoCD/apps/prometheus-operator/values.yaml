@@ -970,11 +970,11 @@ grafana:
         options:
           path: /var/lib/grafana/dashboards/myprovider
     dashboards:
-      myprovider:
 {{- range $path, $bytes := .Files.Glob "dashboards/*.json" }}
-      {{ base $path | replace ".json" "" }}:
-        json: |
-          {{ $bytes | indent 10 }}
+      myprovider:
+        {{ base $path | replace ".json" "" }}:
+          json: |
+            {{ $bytes | indent 10 }}
 {{- end }}
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
   ##
