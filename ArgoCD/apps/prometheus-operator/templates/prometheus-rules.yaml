@@ -1,0 +1,5 @@
+{{- range $path, $_ := .Files.Glob "prometheus-rules/*.yaml" }}
+---
+# From file: {{$path}}
+{{- $.Files.Get $path | indent 0 }}
+{{- end }}
