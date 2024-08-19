@@ -1,0 +1,25 @@
+grafanaDashboards:
+#- alertmanager-overview
+- apiserver
+- cluster-total
+#- etcd
+#- grafana-overview
+- k8s-coredns
+- k8s-resources-cluster
+#- k8s-resources-multicluster
+- k8s-resources-namespace
+- k8s-resources-node
+- k8s-resources-pod
+- k8s-resources-workload
+- k8s-resources-workloads-namespace
+- kubelet
+- namespace-by-pod
+- namespace-by-workload
+- node-cluster-rsrc-use
+- node-rsrc-use
+- nodes
+#- nodes-darwin
+- persistentvolumesusage
+- pod-total
+- prometheus
+- workload-total

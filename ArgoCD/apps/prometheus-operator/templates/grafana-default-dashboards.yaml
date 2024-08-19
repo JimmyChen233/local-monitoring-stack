@@ -1,0 +1,21 @@
+{{- range .Values.grafanaDashboards -}}
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: system-prometheus-{{ . }}
+  namespace: monitoring
+spec:
+  allowCrossNamespaceImport: false
+  configMapRef:
+    key: {{ . }}.json
+    name: system-prometheus-{{ . }}
+  datasources:
+  - datasourceName: prometheus
+    inputName: DS_PROMETHEUS
+  folder: Kubernetes
+  instanceSelector:
+    matchLabels:
+      grafana-type: system-grafana
+  resyncPeriod: 5m
+{{ end -}}
