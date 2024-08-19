@@ -8,8 +8,8 @@ metadata:
 spec:
   config:
     auth:
-      disable_login_form: false
-      disable_signout_menu: true
+      disable_login_form: "False"
+      disable_signout_menu: "True"
     log:
       mode: console
     security:
