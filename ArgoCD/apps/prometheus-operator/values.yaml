@@ -16,7 +16,7 @@ grafanaDashboards:
 - namespace-by-pod
 - namespace-by-workload
 - node-cluster-rsrc-use
-- node-rsrc-use
+#- node-rsrc-use
 - nodes
 #- nodes-darwin
 - persistentvolumesusage
