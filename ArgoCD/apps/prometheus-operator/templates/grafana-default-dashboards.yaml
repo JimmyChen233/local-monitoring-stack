@@ -9,7 +9,7 @@ spec:
   allowCrossNamespaceImport: false
   configMapRef:
     key: {{ . }}.json
-    name: cp-prometheus-{{ . }}
+    name: prometheus-operator-kube-p-{{ . }}
   datasources:
   - datasourceName: prometheus
     inputName: DS_PROMETHEUS
