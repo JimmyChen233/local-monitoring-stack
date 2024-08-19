@@ -22,21 +22,21 @@ variable "deploy_cloudwatch_exporter" {
   default     = false
 }
 
+variable "github_repository_url" {
+  description = "GitHub repository url"
+  type        = string
+  default     = ""
+}
+
+variable "github_username" {
+  description = "GitHub username"
+  type        = string
+  default     = ""
+}
+
 variable "github_token" {
   description = "GitHub token"
   sensitive   = true
-  type        = string
-  default     = ""
-}
-
-variable "github_org" {
-  description = "GitHub organization"
-  type        = string
-  default     = ""
-}
-
-variable "github_repository" {
-  description = "GitHub repository"
   type        = string
   default     = ""
 }

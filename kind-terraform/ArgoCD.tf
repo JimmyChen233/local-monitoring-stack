@@ -28,11 +28,33 @@ EOF
   ]
 }
 
+resource "kubectl_manifest" "argocd_private_repo_secret" {
+  yaml_body = <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-private-repo
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git
+  url: https://github.com/clear-route/local-monitoring-stack.git
+  username: "${var.github_username}"
+  password: "${var.github_token}"
+EOF
+
+  depends_on = [
+    kubectl_manifest.argocd_namespace
+  ]
+}
+
 resource "helm_release" "argo" {
   name = "argocd"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd" 
   namespace  = "argocd" 
   version    = "7.4.3"
-  depends_on = [kubectl_manifest.argocd_namespace,kubectl_manifest.oci_secret]
+  depends_on = [kubectl_manifest.argocd_namespace,kubectl_manifest.oci_secret,kubectl_manifest.argocd_private_repo_secret]
 }
+
