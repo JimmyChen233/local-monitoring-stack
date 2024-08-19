@@ -1,0 +1,21 @@
+{{- range .Values.grafanaDashboards -}}
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: cp-prometheus-{{ . }}
+  namespace: monitoring
+spec:
+  allowCrossNamespaceImport: false
+  configMapRef:
+    key: {{ . }}.json
+    name: prometheus-operator-kube-p-{{ . }}
+  datasources:
+  - datasourceName: prometheus
+    inputName: DS_PROMETHEUS
+  folder: Kubernetes
+  instanceSelector:
+    matchLabels:
+      grafana-type: cp-grafana
+  resyncPeriod: 5m
+{{ end -}}

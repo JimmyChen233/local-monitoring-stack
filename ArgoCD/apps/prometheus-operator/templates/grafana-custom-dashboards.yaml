@@ -1,0 +1,19 @@
+{{- range $path, $_ := .Files.Glob "dashboards/**.json" }}
+---
+# from file: {{$path}}
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  {{- $dashboardname := $path | base | trimSuffix ".json" }}
+  name: {{ printf "%s" $dashboardname | trunc 63 }}
+  namespace: monitoring
+spec:
+  allowCrossNamespaceImport: false
+  instanceSelector:
+    matchLabels:
+      grafana-type: cp-grafana
+  folder: "{{$path | dir | base }}"
+  json: >
+{{ $dashboard := $.Files.Get $path | fromJson  -}}
+{{ unset $dashboard "id" | toJson | indent 4 }}
+{{- end }}

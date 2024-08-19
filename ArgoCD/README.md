@@ -1,4 +1,4 @@
-# Argo CD --- GitOps tool for K8S
+# ArgoCD --- GitOps tool for K8S
 
 ## login argocd cli
 ```

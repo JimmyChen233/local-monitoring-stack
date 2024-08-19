@@ -14,7 +14,7 @@ spec:
       chart: grafana-operator
       helm:
         valueFiles:
-        - $values/ArgoCD/apps/grafana-operator/values.yaml
+        - $values/ArgoCD/apps/grafana-operator/files/grafana-operator-config.yaml
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: monitoring
