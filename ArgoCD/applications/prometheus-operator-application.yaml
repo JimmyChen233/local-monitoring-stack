@@ -9,7 +9,7 @@ spec:
   project: default-project
   sources:
     - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
-      targetRevision: main
+      targetRevision: add-prometheus-rules
       path: 'ArgoCD/apps/prometheus-operator'
       ref: values
     - repoURL: https://prometheus-community.github.io/helm-charts
