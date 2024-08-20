@@ -30,8 +30,7 @@ resource "kubectl_manifest" "argocd_grafana_operator_application" {
   depends_on = [
     kubectl_manifest.argocd_default_project,
     kubectl_manifest.argocd_namespaces,
-    kubectl_manifest.argocd_crd,
-    kubectl_manifest.argocd_prometheus_operator_application
+    kubectl_manifest.argocd_crd
   ]
 }
 
