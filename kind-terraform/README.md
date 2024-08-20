@@ -35,6 +35,8 @@ to be continued...
 
 # apply terraform
 before apply, you need tocreate a terraform.tfvars file and enable to applications you want to deploy --> see variables.tf
+example file:
+![alt text](image.png)
 ```
 cd clusters/k8s-kind-local
 terraform init
