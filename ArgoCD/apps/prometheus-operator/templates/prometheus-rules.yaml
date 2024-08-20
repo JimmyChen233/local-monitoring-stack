@@ -1,5 +1,39 @@
-{{- range $path, $_ := .Files.Glob "prometheus-rules/*.yaml" }}
----
-# From file: {{$path}}
-{{- $.Files.Get $path | indent 0 }}
-{{- end }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app.kubernetes.io/component: prometheus
+    app.kubernetes.io/instance: k8s
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/part-of: kube-prometheus
+    app.kubernetes.io/version: 2.54.0
+    prometheus: k8s
+    role: alert-rules
+  name: prometheus-k8s-prometheus-rules
+  namespace: monitoring
+spec:
+  groups:
+  - name: prometheus
+    rules:
+    - alert: PrometheusBadConfig
+      annotations:
+        description: |
+          Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration.
+        runbook_url: https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusbadconfig
+        summary: Failed Prometheus configuration reload.
+      expr: |
+        max_over_time(prometheus_config_last_reload_successful{job="prometheus-k8s",namespace="monitoring"}[5m]) == 0
+      for: 10m
+      labels:
+        severity: critical
+    - alert: PrometheusSDRefreshFailure
+      annotations:
+        description: |
+          Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to refresh SD with mechanism {{$labels.mechanism}}.
+        runbook_url: https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheussdrefreshfailure
+        summary: Failed Prometheus SD refresh.
+      expr: |
+        increase(prometheus_sd_refresh_failures_total{job="prometheus-k8s",namespace="monitoring"}[10m]) > 0
+      for: 20m
+      labels:
+        severity: warning
