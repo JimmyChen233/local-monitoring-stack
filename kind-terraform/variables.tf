@@ -22,6 +22,12 @@ variable "deploy_cloudwatch_exporter" {
   default     = false
 }
 
+variable "deploy_sloth" {
+  description = "Enable deployment of sloth SLO"
+  type        = bool
+  default     = false
+}
+
 variable "github_repository_url" {
   description = "GitHub repository url"
   type        = string
