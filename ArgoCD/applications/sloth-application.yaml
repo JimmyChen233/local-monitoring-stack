@@ -10,7 +10,7 @@ spec:
       targetRevision: add-sloth
       ref: values
     - repoURL: "https://slok.github.io/sloth"
-      targetRevision: 0.11.0
+      targetRevision: v0.11.0
       chart: "sloth"
       helm:
         valueFiles:
