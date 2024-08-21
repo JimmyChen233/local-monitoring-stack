@@ -30,7 +30,8 @@ resource "kubectl_manifest" "argocd_grafana_operator_application" {
   depends_on = [
     kubectl_manifest.argocd_default_project,
     kubectl_manifest.argocd_namespaces,
-    kubectl_manifest.argocd_crd
+    kubectl_manifest.argocd_crd,
+    kubectl_manifest.argocd_prometheus_operator_application
   ]
 }
 
@@ -62,5 +63,16 @@ resource "kubectl_manifest" "argocd_cloudwatch_exporter_application" {
     kubectl_manifest.argocd_default_project,
     kubectl_manifest.argocd_namespaces,
     kubectl_manifest.argocd_crd
+  ]
+}
+
+resource "kubectl_manifest" "argocd_sloth_application" {
+  count = var.deploy_sloth ? 1 : 0
+  yaml_body = file("${path.module}/../ArgoCD/applications/sloth-application.yaml")
+  depends_on = [
+    kubectl_manifest.argocd_default_project,
+    kubectl_manifest.argocd_namespaces,
+    kubectl_manifest.argocd_crd,
+    kubectl_manifest.argocd_prometheus_operator_application
   ]
 }
