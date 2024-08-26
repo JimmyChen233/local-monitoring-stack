@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: prometheus-operator-config
-data:
-  values.yaml: |-
-{{ tpl (.Files.Get "files/prometheus-config.yaml") . | indent 4 }}
