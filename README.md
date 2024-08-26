@@ -1,7 +1,7 @@
 
-### Local Kubernetes Development Cluster
+# Local Kubernetes Development Cluster
 
-## Overview
+# Overview
 
 This project aims to set up Kubernetes development clusters that serves as a playground for developers. The goal is to provide a platform where team members can add, experiment with, and explore new features and functionalities easily.
 
@@ -12,15 +12,15 @@ GitOps approach to deploy applications on the cluster
 ## Terraform
 this folder holds terraform code for clusters
 
-# aws-eks
+### aws-eks
 An aws eks cluster which contains 4 nodes by default.
-# kind
+### kind
 A basic k8s cluster running locally with kind, with a control-plane and 2 worker nodes
 
 
 ## Preparations
 
-# Install toolings to your pc
+### Install toolings to your pc
 Here we use MacBook as an example
 make sure you have homebrew :wink:
 1. docker
