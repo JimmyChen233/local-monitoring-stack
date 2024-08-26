@@ -10,10 +10,6 @@ output "cluster_ca_certificate" {
   value = aws_eks_cluster.demo.certificate_authority[0].data
 }
 
-output "cluster_kubeconfig" {
-  value = templatefile("${path.module}/kubeconfig.tpl", {
-    cluster_name = aws_eks_cluster.demo.name
-    endpoint     = aws_eks_cluster.demo.endpoint
-    cert_data    = aws_eks_cluster.demo.certificate_authority[0].data
-  })
+output "node_role_arn" {
+  value = aws_iam_role.demo.arn
 }

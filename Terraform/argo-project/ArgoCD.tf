@@ -50,11 +50,11 @@ EOF
 }
 
 resource "helm_release" "argo" {
-  name = "argocd"
+  name       = "argocd"
   repository = "https://argoproj.github.io/argo-helm"
-  chart      = "argo-cd" 
-  namespace  = "argocd" 
+  chart      = "argo-cd"
+  namespace  = "argocd"
   version    = "7.4.3"
-  depends_on = [kubectl_manifest.argocd_namespace,kubectl_manifest.oci_secret,kubectl_manifest.argocd_private_repo_secret]
+  depends_on = [kubectl_manifest.argocd_namespace, kubectl_manifest.oci_secret, kubectl_manifest.argocd_private_repo_secret]
 }
 

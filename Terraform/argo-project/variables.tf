@@ -1,7 +1,19 @@
-variable "kind_cluster" {
-  description = "If the target Kubernetes cluster type is kind"
-  type        = bool
-  default     = true
+variable "region" {
+  type        = string
+  default     = "ap-southeast-2"
+  description = "region"
+}
+
+variable "aws_profile" {
+  type        = string
+  default     = ""
+  description = "aws profile"
+}
+
+variable "cluster_type" {
+  description = "The target Kubernetes cluster type is eks/kind"
+  type        = string
+  default     = "kind"
 }
 
 variable "deploy_prometheus_operator" {
