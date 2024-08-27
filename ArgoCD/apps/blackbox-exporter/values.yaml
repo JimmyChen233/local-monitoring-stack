@@ -10,10 +10,4 @@ config:
         body: |
           email=test.email@gmail.com&street_address=1600+Amphitheatre+Parkway&zip_code=94043&city=Mountain+View&state=CA&country=United+States&credit_card_number=4432801561520454&credit_card_expiration_month=1&credit_card_expiration_year=2025&credit_card_cvv=123
         valid_http_versions: ["HTTP/1.1", "HTTP/2"]
-        fail_if_http_error: true
         follow_redirects: true
-
-  targets:
-    - module: http_cart_checkout
-      targets:
-        - http://a1f3cdc0d289040e7873c456bb124213-94161676.ap-southeast-2.elb.amazonaws.com/cart/checkout
