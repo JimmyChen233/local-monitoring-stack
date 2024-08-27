@@ -3830,7 +3830,21 @@ prometheus:
     ## The scrape configuration example below will find master nodes, provided they have the name .*mst.*, relabel the
     ## port to 2379 and allow etcd scraping provided it is running on all Kubernetes master nodes
     ##
-    additionalScrapeConfigs: []
+    additionalScrapeConfigs:
+      - job_name: 'blackbox-checkout'
+        metrics_path: /probe
+        params:
+          module: [http_cart_checkout]
+        static_configs:
+          - targets:
+            - http://a1f3cdc0d289040e7873c456bb124213-94161676.ap-southeast-2.elb.amazonaws.com/cart/checkout
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox-exporter.monitoring.svc.cluster.local:9115
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
@@ -3876,10 +3890,7 @@ prometheus:
     ## If additional scrape configurations are already deployed in a single secret file you can use this section.
     ## Expected values are the secret name and key
     ## Cannot be used with additionalScrapeConfigs
-    additionalScrapeConfigsSecret:
-      enabled: true
-      name: additional-scrape-configs
-      key: additional-scrape-configs.yaml
+    additionalScrapeConfigsSecret: {}
 
     ## additionalPrometheusSecretsAnnotations allows to add annotations to the kubernetes secret. This can be useful
     ## when deploying via spinnaker to disable versioning on the secret, strategy.spinnaker.io/versioned: 'false'
