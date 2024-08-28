@@ -7,13 +7,8 @@ config:
         method: POST
         headers:
           Content-Type: application/x-www-form-urlencoded
+          Cookie: "shop_session-id=ea7f18c3-76d8-4c45-9b8a-bbe34b63e152" #expired after 48 h. temporary solusion, as Blackbox Exporter does not automatically handle session management, such as cookies. Might go for jason-exporter
         body: |
           email=test.email@gmail.com&street_address=1600+Amphitheatre+Parkway&zip_code=94043&city=Mountain+View&state=CA&country=United+States&credit_card_number=4432801561520454&credit_card_expiration_month=1&credit_card_expiration_year=2025&credit_card_cvv=123
         valid_http_versions: ["HTTP/1.1", "HTTP/2"]
-        follow_redirects: true
-    http_2xx:
-      prober: http
-      timeout: 5s
-      http:
-        valid_http_versions: ["HTTP/1.1","HTTP/2"]
         follow_redirects: true
