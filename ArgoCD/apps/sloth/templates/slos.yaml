@@ -9,6 +9,6 @@ metadata:
 spec:
   service: "{{ $servicename }}"
   {{- with $.Files.Get $path | fromYaml }}
-  {{ toYaml . | indent 2 }}
+  {{- toYaml . | nindent 2 }}
   {{- end }}
 {{- end }}
