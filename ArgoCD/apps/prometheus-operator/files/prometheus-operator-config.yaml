@@ -3845,7 +3845,7 @@ prometheus:
             target_label: instance
           - target_label: __address__
             replacement: blackbox-exporter-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
-      - job_name: 'blackbox-http_2xx'
+      - job_name: 'blackbox-http-2xx'
         metrics_path: /probe
         params:
           module: [http_2xx]  # The module defined in the blackbox config
