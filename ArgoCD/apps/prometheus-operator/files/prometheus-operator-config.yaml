@@ -3845,6 +3845,21 @@ prometheus:
             target_label: instance
           - target_label: __address__
             replacement: blackbox-exporter-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
+      - job_name: 'blackbox-http_2xx'
+        metrics_path: /probe
+        params:
+          module: [http_2xx]  # The module defined in the blackbox config
+        static_configs:
+          - targets:
+            - http://a1f3cdc0d289040e7873c456bb124213-94161676.ap-southeast-2.elb.amazonaws.com/cart/checkout
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox-exporter-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
+
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
