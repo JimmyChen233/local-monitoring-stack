@@ -9,7 +9,7 @@ spec:
   project: default-project
   sources:
     - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
-      targetRevision: HEAD
+      targetRevision: demo
       ref: values
     - repoURL: https://prometheus-community.github.io/helm-charts
       targetRevision: 9.0.0

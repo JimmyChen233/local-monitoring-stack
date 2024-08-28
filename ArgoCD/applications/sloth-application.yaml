@@ -7,7 +7,7 @@ spec:
   project: default-project
   sources:
     - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
-      targetRevision: add-sloth
+      targetRevision: demo
       ref: values
     - repoURL: "https://slok.github.io/sloth"
       targetRevision: 0.7.0

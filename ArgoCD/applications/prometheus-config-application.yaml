@@ -9,7 +9,7 @@ spec:
   project: default-project
   sources:
     - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
-      targetRevision: HEAD
+      targetRevision: demo
       path: 'ArgoCD/apps/prometheus-operator'
   destination:
     server: 'https://kubernetes.default.svc'
