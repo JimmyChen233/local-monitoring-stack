@@ -1056,10 +1056,14 @@
         "hide": 0,
         "includeAll": true,
         "label": null,
-        "multi": true,
+        "multi": false,
         "name": "target",
         "options": [],
-        "query": "label_values(probe_success, instance)",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(probe_success,instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 1,
         "regex": "",
         "sort": 0,
