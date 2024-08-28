@@ -1,4 +1,3 @@
-#https://github.com/slok/sloth/blob/main/deploy/kubernetes/helm/sloth/values.yaml
 labels: {}
 
 image:

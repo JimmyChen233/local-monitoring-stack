@@ -8,13 +8,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
       targetRevision: demo
-      ref: values
-    - repoURL: "https://slok.github.io/sloth"
-      targetRevision: 0.7.0
-      chart: "sloth"
-      helm:
-        valueFiles:
-        - $values/ArgoCD/apps/sloth/files/sloth-config.yaml
+      path: 'ArgoCD/apps/sloth'
   destination:
     server: "https://kubernetes.default.svc"
     namespace: "monitoring"
