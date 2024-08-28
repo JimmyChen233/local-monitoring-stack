@@ -1,0 +1,14 @@
+{{- range $path, $_ := .Files.Glob "slos/**.yaml" }}
+---
+apiVersion: sloth.slok.dev/v1
+kind: PrometheusServiceLevel
+metadata:
+  {{- $servicename := $path | base | trimSuffix ".yaml" }}
+  name: sloth-slo-{{ printf "%s" $servicename | trunc 63 }}
+  namespace: monitoring
+spec:
+  service: "{{ $servicename }}"
+  {{- with $.Files.Get $path | fromYaml }}
+  {{ toYaml . | indent 2 }}
+  {{- end }}
+{{- end }}
