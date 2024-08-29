@@ -3847,6 +3847,11 @@ prometheus:
             replacement: blackbox-exporter-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
           - target_label: service
             replacement: "boutique"
+          - source_labels: [__name__]
+            regex: 'probe_http_status_code'
+            action: keep
+          - source_labels: [__value__]
+            target_label: status_code
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
