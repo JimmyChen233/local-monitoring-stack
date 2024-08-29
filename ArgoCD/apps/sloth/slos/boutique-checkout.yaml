@@ -5,9 +5,10 @@ slos:
     sli:
       events:
         errorQuery: |
-          sum(rate(probe_http_status_code{service="boutique", status_code!="200"}[5m]))
+          sum(rate(probe_http_status_code{service="boutique", status_code!="200"}[{{.window}}]))
         totalQuery: |
-          sum(rate(probe_http_status_code{service="boutique"}[5m]))
+          sum(rate(probe_http_status_code{service="boutique"}[{{.window}}]))
+
     alerting:
       name: "BoutiqueHighErrorRate"
       labels:
