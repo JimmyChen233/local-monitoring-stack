@@ -6,6 +6,8 @@ metadata:
   {{- $servicename := $path | base | trimSuffix ".yaml" }}
   name: sloth-slo-{{ printf "%s" $servicename | trunc 63 }}
   namespace: monitoring
+  labels:
+    release: prometheus-operator
 spec:
   service: "{{ $servicename }}"
   {{- with $.Files.Get $path | fromYaml }}
