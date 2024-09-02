@@ -1,10 +1,10 @@
-variable region {
+variable "region" {
   type        = string
-  default     = "ap-southeast-2"
+  default     = ""
   description = "region"
 }
 
-variable aws_profile {
+variable "aws_profile" {
   type        = string
   default     = ""
   description = "aws profile"
