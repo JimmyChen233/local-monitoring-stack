@@ -9,3 +9,9 @@ variable "aws_profile" {
   default     = ""
   description = "aws profile"
 }
+
+variable "desired_size" {
+  type        = string
+  default     = "2"
+  description = "desired_size"
+}

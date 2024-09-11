@@ -1,0 +1,16 @@
+tests:
+  login:
+    - name: open linkedin.com
+      navigate:
+        url: https://www.linkedin.com/login
+    - name: enter username
+      input:
+        text: env://EMAIL
+        selector: "#username"
+    - name: enter password
+      input:
+        selector: "#password"
+        text: env://PASSWORD
+    - name: Click on Login
+      click:
+        selector: "#organic-div > form > div.login__form_action_container > button"

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-playwright
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-playwright
+  template:
+    metadata:
+      labels:
+        app: prometheus-playwright
+    spec:
+      containers:
+        - name: prometheus-playwright
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: playwright-credentials
+                  key: EMAIL
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: playwright-credentials
+                  key: PASSWORD
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config/tests.yaml
+              subPath: tests.yaml
+            {{- range $file := .Files.Glob "tests/*.yaml" }}
+            - name: {{ $file | base | replace "." "-" }}-volume
+              mountPath: /app/config/{{ $file | base | replace "." "-" }}-test.yaml:
+              subPath: test.yaml
+            {{- end }}
+      volumes:
+        {{- range $file := .Files.Glob "tests/*.yaml" }}
+        - name: {{ $file | base | replace "." "-" }}-volume
+          configMap:
+            name: {{ $file | base | replace "." "-" }}-test
+        {{- end }}
