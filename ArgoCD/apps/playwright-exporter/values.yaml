@@ -1,7 +1,9 @@
 namespace: playwright
+release: playwright-exporter
 image:
   repository: guanqiaochen/prometheus-playwright-exporter
   tag: v0.1.0
 servicemonitor:
   enabled: true
   release: prometheus-operator
+pollInterval: "10s"
