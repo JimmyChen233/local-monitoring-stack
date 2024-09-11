@@ -9,8 +9,8 @@ terraform {
       version = "0.4.0"
     }
     kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.7.0"
+      source = "alekc/kubectl"
+      version = "2.1.0-beta1"
     }
   }
 }
@@ -24,9 +24,7 @@ provider "kind" {}
 
 provider "helm" {
   kubernetes {
-    host                   = local.host
-    cluster_ca_certificate = local.cluster_ca_certificate
-
+    config_path = local.is_eks? null : "../kind/kind-kube-config.yaml"
     dynamic "exec" {
     for_each = local.is_eks ? [1] : []
     content {
@@ -42,7 +40,8 @@ provider "helm" {
 provider "kubectl" {
   host                   = local.host
   cluster_ca_certificate = local.cluster_ca_certificate
-  load_config_file       = false
+  load_config_file = !local.is_eks
+  config_context   = local.is_eks ? null : "kind-kind-cluster"
 
   dynamic "exec" {
     for_each = local.is_eks ? [1] : []

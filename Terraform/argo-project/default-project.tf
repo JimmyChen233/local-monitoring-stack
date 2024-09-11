@@ -76,3 +76,14 @@ resource "kubectl_manifest" "argocd_sloth_application" {
     kubectl_manifest.argocd_prometheus_operator_application
   ]
 }
+
+resource "kubectl_manifest" "argocd_playwright_exporter_application" {
+  count     = var.deploy_sloth ? 1 : 0
+  yaml_body = file("${path.module}/../../ArgoCD/applications/playwright-exporter-application.yaml")
+  depends_on = [
+    kubectl_manifest.argocd_default_project,
+    kubectl_manifest.argocd_namespaces,
+    kubectl_manifest.argocd_crd,
+    kubectl_manifest.argocd_prometheus_operator_application
+  ]
+}
