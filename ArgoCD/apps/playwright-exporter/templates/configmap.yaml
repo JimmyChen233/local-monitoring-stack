@@ -1,10 +1,11 @@
-{{- range $file := .Files.Glob "tests/*.yaml" }}
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ $file | base | replace "." "-" }}-test
-  namespace: {{ .Values.namespace }}
+  name: all-tests
+  namespace: {{ $.Values.namespace }}
 data:
-  test.yaml: |
-    {{ $.Files.Get $file | indent 4 }}
+{{- range $file, $_ := .Files.Glob "tests/**.yaml" }}
+  {{ $file | base | trimSuffix ".yaml" }}.yaml: |
+    {{- $.Files.Get $file | nindent 4 }}
 {{- end }}

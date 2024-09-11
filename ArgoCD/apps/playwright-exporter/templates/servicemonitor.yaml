@@ -2,16 +2,16 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: prometheus-playwright
+  name: {{ .Values.release }}
   namespace: {{ .Values.namespace }}
   labels:
     release: {{ .Values.servicemonitor.release }}
 spec:
   selector:
     matchLabels:
-      app: prometheus-playwright
+      app: {{ .Values.release }}
   endpoints:
-    - port: 8080
+    - port: "8080"
       path: /metrics
       interval: 30s
       scrapeTimeout: 10s

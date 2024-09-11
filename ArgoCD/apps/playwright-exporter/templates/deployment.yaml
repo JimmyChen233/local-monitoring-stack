@@ -1,47 +1,35 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: prometheus-playwright
+  name: {{ .Values.release }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prometheus-playwright
+      app: {{ .Values.release }}
   template:
     metadata:
       labels:
-        app: prometheus-playwright
+        app: {{ .Values.release }}
     spec:
       containers:
-        - name: prometheus-playwright
+        - name: {{ .Values.release }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           env:
-            - name: EMAIL
-              valueFrom:
-                secretKeyRef:
-                  name: playwright-credentials
-                  key: EMAIL
-            - name: PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: playwright-credentials
-                  key: PASSWORD
+            - name: POLL_INTERVAL
+              value: "{{ .Values.pollInterval }}"
+          envFrom:
+            - secretRef:
+                name: playwright-credentials
           volumeMounts:
-            - name: config-volume
-              mountPath: /app/config/tests.yaml
-              subPath: tests.yaml
-            {{- range $file := .Files.Glob "tests/*.yaml" }}
-            - name: {{ $file | base | replace "." "-" }}-volume
-              mountPath: /app/config/{{ $file | base | replace "." "-" }}-test.yaml:
-              subPath: test.yaml
-            {{- end }}
+            - name: testfile-volume
+              mountPath: /app/tests
       volumes:
-        {{- range $file := .Files.Glob "tests/*.yaml" }}
-        - name: {{ $file | base | replace "." "-" }}-volume
+        - name: testfile-volume
           configMap:
-            name: {{ $file | base | replace "." "-" }}-test
-        {{- end }}
+            name: all-tests

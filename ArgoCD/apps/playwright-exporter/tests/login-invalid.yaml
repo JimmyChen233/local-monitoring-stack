@@ -1,10 +1,10 @@
 steps:
   - name: open linkedin.com
     navigate:
-      url: https://www.linkedin.com/login
+      url: https://www.wronglinkedin.com/login
   - name: enter username
     input:
-      text: env://EMAIL
+      text: "env://EMAIL"
       selector: "#username"
   - name: enter password
     input:
