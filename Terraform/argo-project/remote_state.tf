@@ -9,9 +9,10 @@ data "terraform_remote_state" "kind_cluster" {
 
 data "terraform_remote_state" "eks_cluster" {
   count   = var.cluster_type == "eks" ? 1 : 0
-  backend = "local"
-
+  backend = "s3"
   config = {
-    path = "../aws-eks/terraform.tfstate"
+    bucket = "obsstack-demo-7"
+    key    = "tfstate/terraform.tfstate"
+    region = "ap-southeast-2"
   }
 }
