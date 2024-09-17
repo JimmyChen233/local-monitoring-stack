@@ -156,11 +156,9 @@ serviceMonitor:
   # metricRelabelings: []
   #
   # Example - note the Kubernetes convention of camelCase instead of Prometheus' snake_case
-  # metricRelabelings:
-  #   - sourceLabels: [dbinstance_identifier]
-  #     action: replace
-  #     replacement: mydbname
-  #     targetLabel: dbname
+  metricRelabelings:
+    - sourceLabels: [BucketName, BackupFolder]
+      action: keep
  
 
 prometheusRule:
