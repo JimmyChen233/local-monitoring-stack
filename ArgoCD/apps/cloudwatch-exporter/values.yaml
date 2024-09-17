@@ -142,17 +142,15 @@ readinessProbe:
 serviceMonitor:
   # When set true then use a ServiceMonitor to configure scraping
   enabled: true
-  additionalLabels:
-    prometheus-selector-target: cp-prometheus
-    release: prometheus-operator
   # Set the namespace the ServiceMonitor should be deployed
-  # namespace: monitoring
+  namespace: monitoring
   # Set how frequently Prometheus should scrape
-  # interval: 30s
+  interval: 30s
   # Set path to cloudwatch-exporter telemtery-path
   # telemetryPath: /metrics
   # Set labels for the ServiceMonitor, use this to define your scrape label for Prometheus Operator
-  # labels:
+  labels:
+    release: prometheus-operator
   # Set timeout for scrape
   # timeout: 10s
   # Set relabelings for the ServiceMonitor, use to apply to samples before scraping
@@ -166,6 +164,7 @@ serviceMonitor:
   #     action: replace
   #     replacement: mydbname
   #     targetLabel: dbname
+ 
 
 prometheusRule:
   # Specifies whether a PrometheusRule should be created
