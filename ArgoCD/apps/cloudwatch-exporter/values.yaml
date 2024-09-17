@@ -89,9 +89,9 @@ serviceAccount:
   # annotations:
   # Will add the provided map to the annotations for the created serviceAccount
   # e.g.
-  # annotations:
-  #   eks.amazonaws.com/role-arn: arn:aws:iam::1234567890:role/prom-cloudwatch-exporter-oidc
-  #   eks.amazonaws.com/sts-regional-endpoints: "true"
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::975050172027:role/cloudwatch-exporter-eks-role
+    eks.amazonaws.com/sts-regional-endpoints: "true"
   # Specifies whether to automount API credentials for the ServiceAccount.
   automountServiceAccountToken: true
 
@@ -100,7 +100,7 @@ rbac:
   create: true
 
 # Configuration is rendered with `tpl` function, therefore you can use any Helm variables and/or templates here
-config:
+config: |-
   region: ap-southeast-2
   period_seconds: 240
   metrics:
