@@ -24,7 +24,9 @@ provider "kind" {}
 
 provider "helm" {
   kubernetes {
-    config_path = local.is_eks? null : "../kind/kind-kube-config.yaml"
+    host                   = local.host
+    cluster_ca_certificate = local.cluster_ca_certificate
+
     dynamic "exec" {
     for_each = local.is_eks ? [1] : []
     content {
@@ -40,8 +42,7 @@ provider "helm" {
 provider "kubectl" {
   host                   = local.host
   cluster_ca_certificate = local.cluster_ca_certificate
-  load_config_file = !local.is_eks
-  config_context   = local.is_eks ? null : "kind-kind-cluster"
+  load_config_file       = false
 
   dynamic "exec" {
     for_each = local.is_eks ? [1] : []
