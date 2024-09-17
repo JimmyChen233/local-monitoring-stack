@@ -107,7 +107,7 @@ config: |-
     - aws_namespace: "S3/BackupMetrics"
       aws_metric_name: "LastBackupTime"
       aws_statistics: [Maximum]  # Fetch the latest timestamp
-      range_seconds: 300  # Collect data over the last 5 minutes
+      range_seconds: 60  # Collect data over the last 5 minutes
       period_seconds: 60   # Scrape every minute
       delay_seconds: 0
       aws_dimensions: [BucketName]
