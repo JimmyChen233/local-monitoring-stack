@@ -31,20 +31,18 @@ config: |-
   apiVersion: v1alpha1
   sts-region: ap-southeast-2
   customNamespace:
-    - S3/BackupMetrics
-  discovery:
-    jobs:
-      - type: AWS/CloudWatch
-        regions:
-          - ap-southeast-2
-        roles:
-          - roleArn: arn:aws:iam::975050172027:role/cloudwatch-exporter-eks-role
-        metrics:
-            name: LastBackupTime
-            statistics:
-              - Maximum
-            period: 60
-            length: 300 # Checking data from the last 5 minutes (300 seconds)
+    - name: customS3Metrics
+      namespace: S3/BackupMetrics
+      regions:
+        - ap-southeast-2
+      metrics:
+        - name: LastBackupTime
+          statistics:
+            - Average
+          period: 60
+          length: 300
+          nilToZero: true
+
 serviceMonitor:
   enabled: true
   namespace: monitoring
