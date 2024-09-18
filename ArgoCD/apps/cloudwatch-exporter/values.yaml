@@ -65,6 +65,4 @@ prometheusRule:
 
 
 
-securityContext:
-  runAsUser: 65534  # run as nobody user instead of root
-  fsGroup: 65534  # necessary to be able to read the EKS IAM token
+securityContext: {}
