@@ -11,9 +11,9 @@ spec:
     - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
       targetRevision: demo
       ref: values
-    - repoURL: https://prometheus-community.github.io/helm-charts
-      targetRevision: 0.25.3
-      chart: prometheus-cloudwatch-exporter
+    - repoURL: https://nerdswords.github.io/helm-charts
+      targetRevision: 0.38.0
+      chart: yet-another-cloudwatch-exporter
       helm:
         valueFiles:
         - $values/ArgoCD/apps/cloudwatch-exporter/values.yaml
