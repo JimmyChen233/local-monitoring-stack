@@ -30,24 +30,21 @@ serviceAccount:
 config: |-
   apiVersion: v1alpha1
   sts-region: ap-southeast-2
+  customNamespace:
+    - S3/BackupMetrics
   discovery:
     jobs:
-      - type: CloudWatch
+      - type: AWS/CloudWatch
         regions:
           - ap-southeast-2
+        roles:
+          - roleArn: arn:aws:iam::975050172027:role/cloudwatch-exporter-eks-role
         metrics:
-          - namespace: S3/BackupMetrics
             name: LastBackupTime
             statistics:
               - Maximum
             period: 60
             length: 300 # Checking data from the last 5 minutes (300 seconds)
-            dimensions:
-              - name: BucketName
-                value: "dprs-backup-test"
-              - name: BackupFolder
-                value: "backups/"
-
 serviceMonitor:
   enabled: true
   namespace: monitoring
