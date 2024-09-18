@@ -32,7 +32,7 @@ config: |-
   sts-region: ap-southeast-2
   discovery:
     jobs:
-      - type: Custom
+      - type: CloudWatch
         regions:
           - ap-southeast-2
         metrics:
