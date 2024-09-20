@@ -12,6 +12,7 @@ spec:
     - 'https://kubernetes-sigs.github.io/metrics-server'
     - 'https://slok.github.io/sloth'
     - 'https://nerdswords.github.io/helm-charts'
+    - 'https://github.com/traefik/traefik-helm-chart'
   destinations:
     - namespace: '*'
       server: https://kubernetes.default.svc
