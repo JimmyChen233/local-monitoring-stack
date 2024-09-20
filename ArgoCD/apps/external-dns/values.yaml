@@ -1,0 +1,23 @@
+aws:
+  zoneType: public   # Can be 'public' or 'private' for your Route 53 zone type
+  region: ap-southeast-2
+  credentials:
+    secretName: externaldns-aws-credentials
+    secretKey: credentials
+
+serviceAccount:
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::975050172027:role/ExternalDNSRole
+  name: external-dns
+
+extraArgs:
+  - "--txt-encrypt-enabled"
+
+rbac:
+  create: true
+  pspEnabled: false
+
+sources:
+  - service
+  - ingress

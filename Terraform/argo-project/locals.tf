@@ -4,6 +4,8 @@ locals {
   cluster_ca_certificate = !local.is_eks ? data.terraform_remote_state.kind_cluster[0].outputs.cluster_ca_certificate : base64decode(data.terraform_remote_state.eks_cluster[0].outputs.cluster_ca_certificate)
   client_certificate     = !local.is_eks ? data.terraform_remote_state.kind_cluster[0].outputs.client_certificate : null
   client_key             = !local.is_eks ? data.terraform_remote_state.kind_cluster[0].outputs.client_key : null
+  oidc_provider          = local.is_eks ? data.terraform_remote_state.eks_cluster[0].outputs.oidc_provider : null
+  account_id             = local.is_eks ? data.terraform_remote_state.eks_cluster[0].outputs.account_id : null
 
   kubectl_exec = local.is_eks ? {
     api_version = "client.authentication.k8s.io/v1beta1"

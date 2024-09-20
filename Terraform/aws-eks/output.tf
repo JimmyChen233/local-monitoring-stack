@@ -13,3 +13,11 @@ output "cluster_ca_certificate" {
 output "node_role_arn" {
   value = aws_iam_role.demo.arn
 }
+
+output "oidc_provider" {
+  value = aws_eks_cluster.demo.identity[0].oidc[0].issuer
+}
+
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
+}

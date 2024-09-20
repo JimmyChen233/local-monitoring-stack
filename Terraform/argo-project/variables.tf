@@ -17,7 +17,13 @@ variable "cluster_type" {
 }
 
 variable "deploy_traefik" {
-  description = "Enable deployment oftraefik"
+  description = "Enable deployment of traefik"
+  type        = bool
+  default     = true
+}
+
+variable "deploy_external_dns" {
+  description = "Enable deployment of external_dns"
   type        = bool
   default     = true
 }
