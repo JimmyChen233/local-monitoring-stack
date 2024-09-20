@@ -3080,7 +3080,8 @@ prometheus:
   ## Configuration for Prometheus service
   ##
   service:
-    annotations: {}
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: "prometheus.localmonitoringstack.com.au"
     labels: {}
     clusterIP: ""
     ipDualStack:
