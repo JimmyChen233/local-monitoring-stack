@@ -2,6 +2,11 @@ aws:
   zoneType: public   # Can be 'public' or 'private' for your Route 53 zone type
   region: ap-southeast-2
 
+provider: aws
+registry: txt
+interval: 1m
+txt-owner-id: external-dns
+
 serviceAccount:
   create: true
   annotations:
