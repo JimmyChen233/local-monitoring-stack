@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - web  # HTTP port
   routes:
-    - match: PathPrefix(`/prometheus`)  # Match all requests to the root path
+    - match: PathPrefix(`/`)  # Match all requests to the root path
       kind: Rule
       services:
         - name: prometheus-operator-kube-p-prometheus
