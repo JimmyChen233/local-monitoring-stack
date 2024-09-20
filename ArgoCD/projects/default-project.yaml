@@ -12,7 +12,7 @@ spec:
     - 'https://kubernetes-sigs.github.io/metrics-server'
     - 'https://slok.github.io/sloth'
     - 'https://nerdswords.github.io/helm-charts'
-    - 'https://helm.traefik.io/traefik'
+    - 'https://traefik.github.io/charts'
     - 'https://charts.bitnami.com/bitnami'
   destinations:
     - namespace: '*'

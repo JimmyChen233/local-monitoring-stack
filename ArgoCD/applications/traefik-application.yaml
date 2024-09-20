@@ -9,9 +9,9 @@ spec:
     - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
       targetRevision: demo
       ref: values
-    - repoURL: https://helm.traefik.io/traefik
+    - repoURL: https://traefik.github.io/charts
       chart: traefik
-      targetRevision: 9.2.0
+      targetRevision: v31.1.0
       helm:
         valueFiles:
         - $values/ArgoCD/apps/traefik/values.yaml
