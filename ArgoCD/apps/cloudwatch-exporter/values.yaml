@@ -31,7 +31,7 @@ config: |-
   apiVersion: v1alpha1
   sts-region: ap-southeast-2
   customNamespace:
-    - name: customS3Metrics
+    - name: LastBackupTime
       namespace: S3/BackupMetrics
       regions:
         - ap-southeast-2
@@ -50,10 +50,10 @@ serviceMonitor:
   labels:
     release: prometheus-operator
   metricRelabelings:
-    - sourceLabels: [BucketName, BackupFolder]
+    - sourceLabels: [BucketName, BackupFolder,name]
       action: keep
     - action: labeldrop
-      regex: '^(account_id|container|dimension_BackupFolder|endpoint|instance|job|name|namespace|pod|region|service)$'
+      regex: '^(account_id|container|endpoint|instance|job|namespace|pod|region|service)$'
  
 
 prometheusRule:
