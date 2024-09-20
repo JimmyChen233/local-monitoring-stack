@@ -1,4 +1,14 @@
 apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: prometheus-strip-prefix
+  namespace: monitoring
+spec:
+  stripPrefix:
+    prefixes:
+      - /prometheus
+---
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: prometheus-ingressroute
@@ -7,8 +17,10 @@ spec:
   entryPoints:
     - web  # HTTP port
   routes:
-    - match: PathPrefix(`/`)  # Match all requests to the root path
+    - match: PathPrefix(`/prometheus`)  # Match all requests to the root path
       kind: Rule
       services:
         - name: prometheus-operator-kube-p-prometheus
           port: 9090  # The port on which Prometheus is exposed inside the cluster
+      middlewares:
+        - name: prometheus-strip-prefix
