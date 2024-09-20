@@ -1,9 +1,6 @@
 aws:
   zoneType: public   # Can be 'public' or 'private' for your Route 53 zone type
   region: ap-southeast-2
-  credentials:
-    secretName: externaldns-aws-credentials
-    secretKey: credentials
 
 serviceAccount:
   create: true
