@@ -14,9 +14,20 @@ resource "kubectl_manifest" "argocd_crd" {
   depends_on = [helm_release.argo]
 }
 
-resource "kubectl_manifest" "argocd_prometheus_operator_application" {
-  count     = var.deploy_prometheus_operator ? 1 : 0
-  yaml_body = file("${path.module}/../../ArgoCD/applications/prometheus-operator-application.yaml")
+resource "kubectl_manifest" "argocd_sloth_application" {
+  count     = var.deploy_sloth ? 1 : 0
+  yaml_body = file("${path.module}/../../ArgoCD/applications/sloth-application.yaml")
+  depends_on = [
+    kubectl_manifest.argocd_default_project,
+    kubectl_manifest.argocd_namespaces,
+    kubectl_manifest.argocd_crd,
+    kubectl_manifest.argocd_prometheus_operator_application
+  ]
+}
+
+resource "kubectl_manifest" "argocd_traefik_application" {
+  count     = var.deploy_traefik ? 1 : 0
+  yaml_body = file("${path.module}/../../ArgoCD/applications/traefik-application.yaml")
   depends_on = [
     kubectl_manifest.argocd_default_project,
     kubectl_manifest.argocd_namespaces,

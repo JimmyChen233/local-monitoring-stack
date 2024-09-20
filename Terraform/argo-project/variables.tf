@@ -16,6 +16,12 @@ variable "cluster_type" {
   default     = "kind"
 }
 
+variable "deploy_traefik" {
+  description = "Enable deployment oftraefik"
+  type        = bool
+  default     = true
+}
+
 variable "deploy_prometheus_operator" {
   description = "Enable deployment of prometheus-operator"
   type        = bool
