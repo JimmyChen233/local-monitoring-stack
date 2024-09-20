@@ -52,6 +52,8 @@ serviceMonitor:
   metricRelabelings:
     - sourceLabels: [BucketName, BackupFolder]
       action: keep
+    - action: labeldrop
+      regex: '^(account_id|container|dimension_BackupFolder|endpoint|instance|job|name|namespace|pod|region|service)$'
  
 
 prometheusRule:
