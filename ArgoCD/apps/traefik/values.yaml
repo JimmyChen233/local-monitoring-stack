@@ -1,0 +1,6 @@
+replicas: 1
+service:
+  type: LoadBalancer  # Expose Traefik using a LoadBalancer
+ingressRoute:
+  dashboard:
+    enabled: true  # Enable the Traefik dashboard
