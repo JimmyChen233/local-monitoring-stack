@@ -3081,7 +3081,7 @@ prometheus:
   ##
   service:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: "prometheus.localmonitoringstack.com.au"
+      external-dns.alpha.kubernetes.io/hostname: prometheus.localmonitoringstack.com.au
     labels: {}
     clusterIP: ""
     ipDualStack:
