@@ -4,4 +4,3 @@ service:
   type: LoadBalancer
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: "nlb"  # Use Network Load Balancer (NLB)
-    service.beta.kubernetes.io/aws-load-balancer-eip-allocations: "eipalloc-0e4cda7ae18334489,eipalloc-0b7b0c68ecbab10b3"

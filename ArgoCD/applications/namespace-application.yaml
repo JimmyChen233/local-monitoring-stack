@@ -7,7 +7,7 @@ spec:
   project: default-project
   source:
     repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
-    targetRevision: HEAD
+    targetRevision: demo
     path: 'ArgoCD/namespaces'
   destination:
     server: 'https://kubernetes.default.svc'
