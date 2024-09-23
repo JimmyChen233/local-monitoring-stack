@@ -107,7 +107,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": null
       },
       "fieldConfig": {
         "defaults": {
@@ -161,7 +161,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": null
           },
           "exemplar": true,
           "expr": "count(sloth_slo_info)",
@@ -176,7 +176,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": null
       },
       "fieldConfig": {
         "defaults": {
@@ -230,7 +230,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": null
           },
           "exemplar": true,
           "expr": "count(max(sloth_slo_info) by (sloth_service))",
@@ -245,7 +245,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": null
       },
       "fieldConfig": {
         "defaults": {
@@ -308,7 +308,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": null
           },
           "exemplar": true,
           "expr": "avg(slo:current_burn_rate:ratio)",
@@ -323,7 +323,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": null
       },
       "fieldConfig": {
         "defaults": {
@@ -378,7 +378,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": null
           },
           "exemplar": true,
           "expr": "max(ALERTS{sloth_id!=\"\",sloth_severity=\"ticket\"}) OR on() vector(0)",
@@ -393,7 +393,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": null
       },
       "fieldConfig": {
         "defaults": {
@@ -448,7 +448,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": null
           },
           "exemplar": true,
           "expr": "max(ALERTS{sloth_id!=\"\",sloth_severity=\"page\"}) OR on() vector(0)",
@@ -489,7 +489,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": null
       },
       "description": "The burning rate of the all the Service SLOs",
       "fieldConfig": {
@@ -573,7 +573,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": null
           },
           "exemplar": true,
           "expr": "slo:current_burn_rate:ratio > ${min_burning_rate}",
@@ -589,7 +589,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": null
       },
       "description": "The SLOs that currently are burning more error budget that then available",
       "fieldConfig": {
@@ -710,7 +710,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": null
           },
           "exemplar": true,
           "expr": "slo:current_burn_rate:ratio > ${min_burning_rate}",
@@ -763,7 +763,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": null
       },
       "description": "Shows all the SLOs at the same time burning rate state",
       "fieldConfig": {
@@ -820,7 +820,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": null
           },
           "exemplar": true,
           "expr": "slo:current_burn_rate:ratio",
@@ -836,7 +836,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": null
       },
       "description": "",
       "fieldConfig": {
@@ -892,7 +892,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": null
           },
           "exemplar": true,
           "expr": "slo:period_error_budget_remaining:ratio",
