@@ -5,7 +5,7 @@ slos:
     sli:
       events:
         errorQuery: |
-          sum(count_over_time(((time() - aws_s3_backupmetrics_last_backup_time_maximum{dimension_BucketName="dprsbackuptest"})/60 > 7)[{{.window}}:]))
+          sum(count_over_time(((time() - aws_s3_backupmetrics_last_backup_time_maximum{dimension_BucketName="dprsbackuptest"})/60 > 8)[{{.window}}:]))
         totalQuery: |
           sum(count_over_time((aws_s3_backupmetrics_last_backup_time_maximum{dimension_BucketName="dprsbackuptest"})[{{.window}}:]))
 
@@ -14,7 +14,7 @@ slos:
       labels:
         category: "availability"
       annotations:
-        summary: "Backup connectivity for S3 bucket 'dprsbackuptest' has exceeded the 7-minute threshold since the last event."
+        summary: "Backup connectivity for S3 bucket 'dprsbackuptest' has exceeded the 8-minute threshold since the last event."
       pageAlert:
         labels:
           severity: pageteam
