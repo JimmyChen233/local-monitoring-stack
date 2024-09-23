@@ -20,3 +20,6 @@ rbac:
 sources:
   - service
   - ingress
+
+domainFilters:
+  - localmonitoringstack.com.au
