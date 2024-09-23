@@ -5,7 +5,7 @@ slos:
     sli:
       events:
         errorQuery: |
-          sum(count_over_time(((time() - aws_s3_backupmetrics_last_backup_time_maximum{dimension_BucketName="dprsbackuptest"})/60 > 8)[{{.window}}:]))
+          sum(count_over_time(((time() - aws_s3_backupmetrics_last_backup_time_maximum{dimension_BucketName="dprsbackuptest"})/60 > 3)[{{.window}}:]))
         totalQuery: |
           sum(count_over_time((aws_s3_backupmetrics_last_backup_time_maximum{dimension_BucketName="dprsbackuptest"})[{{.window}}:]))
 
