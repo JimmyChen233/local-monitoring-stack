@@ -13,10 +13,6 @@ serviceAccount:
     eks.amazonaws.com/role-arn: arn:aws:iam::975050172027:role/ExternalDNSRole
   name: external-dns
 
-rbac:
-  create: true
-  pspEnabled: false
-
 sources:
   - service
   - ingress
