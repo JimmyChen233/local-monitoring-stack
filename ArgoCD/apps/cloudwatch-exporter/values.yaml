@@ -40,7 +40,7 @@ config: |-
           statistics:
             - Maximum
           period: 60
-          length: 600
+          length: 300
           nilToZero: true
 
 serviceMonitor:
