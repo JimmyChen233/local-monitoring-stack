@@ -63,3 +63,6 @@ prometheusRule:
 
 
 securityContext: {}
+
+extraArgs:
+  scraping-interval: "60"
