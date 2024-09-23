@@ -5,9 +5,9 @@ slos:
     sli:
       events:
         errorQuery: |
-          count_over_time(((time() - aws_s3_backupmetrics_last_backup_time_maximum{dimension_BucketName="dprsbackuptest"})/60 > 7)[{{.window}}])
+          count_over_time((time() - aws_s3_backupmetrics_last_backup_time_maximum{dimension_BucketName="dprsbackuptest"}) / 60 > 7)[{{.window}}:]
         totalQuery: |
-          count_over_time((aws_s3_backupmetrics_last_backup_time_maximum{dimension_BucketName="dprsbackuptest"})[{{.window}}])
+          count_over_time(aws_s3_backupmetrics_last_backup_time_maximum{dimension_BucketName="dprsbackuptest"})[{{.window}}:]
 
     alerting:
       name: "BackupConnectivityHighErrorRate"
