@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web 
-    external-dns.alpha.kubernetes.io/hostname: "prometheus.localmonitoringstack.com.au"
+    external-dns.alpha.kubernetes.io/hostname: prometheus.localmonitoringstack.com.au
 spec:
   rules:
   - host: prometheus.localmonitoringstack.com.au
@@ -15,6 +15,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: prometheus-operator-kube-p-prometheus       # Name of your Prometheus service
+            name: prometheus-operator-kube-p-prometheus
             port:
-              number: 9090               # Port on which Prometheus is exposed
+              number: 9090
