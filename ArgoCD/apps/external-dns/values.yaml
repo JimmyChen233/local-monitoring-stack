@@ -16,6 +16,7 @@ serviceAccount:
 sources:
   - service
   - ingress
+  - ingressroute
 
 domainFilters:
   - localmonitoringstack.com.au
