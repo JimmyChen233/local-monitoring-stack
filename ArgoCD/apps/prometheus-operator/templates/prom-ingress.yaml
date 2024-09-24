@@ -4,8 +4,8 @@ metadata:
   name: prometheus-ingress
   namespace: monitoring
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: prometheus.localmonitoringstack.com.au
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    kubernetes.io/ingress.class: traefik
+    external-dns.alpha.kubernetes.io/target: prometheus.localmonitoringstack.com.au
 spec:
   rules:
   - host: prometheus.localmonitoringstack.com.au
