@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus-ingressroute
+  namespace: monitoring
+spec:
+  entryPoints:
+    - web  # HTTP
+  routes:
+  - match: Host(`prometheus.localmonitoringstack.com.au`)  # Match the hostname
+    kind: Rule
+    services:
+    - name: prometheus-operator-kube-p-prometheus  # Prometheus service
+      port: 9090
