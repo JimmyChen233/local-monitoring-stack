@@ -41,7 +41,7 @@ service:
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443, 9000"
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: <YOUR_CERTIFICATE_ARN> #5
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:ap-southeast-2:975050172027:certificate/c920a253-65b1-4c4c-99e6-963f43e3beee
     service.beta.kubernetes.io/load-balancer-source-ranges: 0.0.0.0/0
 globalArguments:
   - "--api.insecure=true"
