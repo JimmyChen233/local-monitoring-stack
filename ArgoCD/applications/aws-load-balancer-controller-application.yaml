@@ -16,7 +16,7 @@ spec:
       chart: aws-load-balancer-controller
       helm:
         valueFiles:
-        - $values/ArgoCD/apps/aws-load-balancer-controller/values.yaml
+        - $values/ArgoCD/apps/aws-load-balancer-controller/files/values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: kube-system
