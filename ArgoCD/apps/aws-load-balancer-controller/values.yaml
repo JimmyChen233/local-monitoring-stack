@@ -1,9 +1,7 @@
-apiVersion: v2
-name: load-balancer-controller-configuration
-description: aws loadbalancer controller configuration
+replicaCount: 1
 
-type: application
+serviceAccount:
+  create: false
+  name: aws-load-balancer-controller
 
-version: 0.0.1
-
-appVersion: "1.16.0"
+clusterName: demo

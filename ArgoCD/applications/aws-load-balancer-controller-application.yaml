@@ -12,7 +12,7 @@ spec:
       targetRevision: demo
       ref: values
     - repoURL: https://aws.github.io/eks-charts
-      targetRevision: 9.0.0
+      targetRevision: 1.8.3
       chart: aws-load-balancer-controller
       helm:
         valueFiles:
