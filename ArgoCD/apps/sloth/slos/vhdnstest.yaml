@@ -10,6 +10,7 @@ slos:
           count_over_time(probe_success{job="blackbox", module=~"dns_tcp.*",domain=~".*vhdns.*"}[{{.window}}])
 
     alerting:
+      name: "DNSQueriesTCPHighErrorRate"
       page_alert:
         disable: true
       ticket_alert:
