@@ -1,11 +1,50 @@
+#1
+ports:
+  web:
+    expose: true
+  websecure:
+    port: 8443
+    expose: false
+    exposedPort: 443
+    protocol: TCP
+    tls:
+      enabled: false
+  traefik:
+    port: 9000
+    expose: true
+    exposedPort: 9000
+    protocol: TCP
+    tls:
+      enabled: false
+  prometheus:
+    port: 9090
+    expose: true
+    exposedPort: 9090
+    protocol: TCP
+
+#2
+ingressRoute:
+  dashboard:
+    enabled: false
 deployment:
   replicas: 1
 service:
-  type: LoadBalancer
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-    external-dns.alpha.kubernetes.io/hostname: prometheus.localmonitoringstack.com.au
+    external-dns.alpha.kubernetes.io/hostname: traefik.localmonitoringstack.com.au
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443, 9000"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: <YOUR_CERTIFICATE_ARN> #5
+    service.beta.kubernetes.io/load-balancer-source-ranges: 0.0.0.0/0
+globalArguments:
+  - "--api.insecure=true"
 providers:
   kubernetesIngress:
     enabled: true
     ingressClass: traefik
+logs:
+  general:
+    level: INFO
+  access:
+    enabled: true
