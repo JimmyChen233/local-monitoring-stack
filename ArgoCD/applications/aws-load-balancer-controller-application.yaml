@@ -19,7 +19,7 @@ spec:
         - $values/ArgoCD/apps/aws-load-balancer-controller/values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: network
+    namespace: kube-system
   syncPolicy:
     automated:
       prune: true

@@ -7,6 +7,13 @@ locals {
   oidc_provider          = local.is_eks ? replace(data.terraform_remote_state.eks_cluster[0].outputs.oidc_provider, "https://", "") : null
   account_id             = local.is_eks ? data.terraform_remote_state.eks_cluster[0].outputs.account_id : null
 
+  assume_role_policy = templatefile("${path.module}/files/assume_role_policy.json", {
+    account_id    = local.account_id
+    oidc_provider = local.oidc_provider
+  })
+
+  aws_lb_controller_policy = templatefile("${path.module}/files/aws_lb_controller_policy.json", {})
+
   kubectl_exec = local.is_eks ? {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "aws"
