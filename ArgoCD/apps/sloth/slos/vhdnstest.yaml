@@ -5,9 +5,9 @@ slos:
     sli:
       events:
         errorQuery: |
-          count_over_time(probe_success{job="blackbox", module=~"dns_tcp.*",domain=~".*vhdns.*"} == 0[{{.window}}])
+          count_over_time(probe_success{job="blackbox", module=~"dns_tcp.*", domain=~".*vhdns.*"} == 0[{{.window}}])
         totalQuery: |
-          count_over_time(probe_success{job="blackbox", module=~"dns_tcp.*",domain=~".*vhdns.*"}[{{.window}}])
+          count_over_time(probe_success{job="blackbox", module=~"dns_tcp.*", domain=~".*vhdns.*"}[{{.window}}])
 
     alerting:
       name: "DNSQueriesTCPHighErrorRate"

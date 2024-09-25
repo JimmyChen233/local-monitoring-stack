@@ -19,13 +19,13 @@ variable "cluster_type" {
 variable "deploy_traefik" {
   description = "Enable deployment of traefik"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "deploy_external_dns" {
   description = "Enable deployment of external_dns"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "deploy_prometheus_operator" {
