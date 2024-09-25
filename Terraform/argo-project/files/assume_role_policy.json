@@ -9,7 +9,7 @@
         "Action": "sts:AssumeRoleWithWebIdentity",
         "Condition": {
           "StringEquals": {
-            "${oidc_provider}:sub": "system:serviceaccount:monitoring:cloudwatch-exporter-yet-another-cloudwatch-exporter",
+            "${oidc_provider}:sub": "system:serviceaccount:${namespace}:${serviceaccount}",
             "${oidc_provider}:aud": "sts.amazonaws.com"
           }
         }

@@ -88,4 +88,13 @@ variable "deploy_aws_load_balancer_controller" {
   type        = bool
   default     = false
 }
- 
+
+variable "service_accounts" {
+  type = map(string)
+  default = {
+    "s3-backup-sa"                                        = "monitoring"
+    "cloudwatch-exporter-yet-another-cloudwatch-exporter" = "monitoring"
+    "external-dns"                                        = "network"
+    "aws-load-balancer-controller"                        = "kube-system"
+  }
+}
