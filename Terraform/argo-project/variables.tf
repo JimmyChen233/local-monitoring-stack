@@ -82,3 +82,10 @@ variable "github_token" {
   type        = string
   default     = ""
 }
+
+variable "deploy_aws_load_balancer_controller" {
+  description = "Enable deployment of aws_load_balancer_controller"
+  type        = bool
+  default     = false
+}
+ 

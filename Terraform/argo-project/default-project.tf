@@ -14,6 +14,16 @@ resource "kubectl_manifest" "argocd_crd" {
   depends_on = [helm_release.argo]
 }
 
+resource "kubectl_manifest" "aws_load_balancer_controller_application" {
+  count     = var.deploy_aws_load_balancer_controller ? 1 : 0
+  yaml_body = file("${path.module}/../../ArgoCD/applications/aws-load-balancer-controller-application.yaml")
+  depends_on = [
+    kubectl_manifest.argocd_default_project,
+    kubectl_manifest.argocd_namespaces,
+    kubectl_manifest.argocd_crd
+  ]
+}
+
 resource "kubectl_manifest" "argocd_traefik_application" {
   count     = var.deploy_traefik ? 1 : 0
   yaml_body = file("${path.module}/../../ArgoCD/applications/traefik-application.yaml")

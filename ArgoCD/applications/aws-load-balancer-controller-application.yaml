@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aws-load-balancer-controller
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default-project
+  sources:
+    - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
+      targetRevision: demo
+      ref: values
+    - repoURL: https://aws.github.io/eks-charts
+      targetRevision: 9.0.0
+      chart: aws-load-balancer-controller
+      helm:
+        valueFiles:
+        - $values/ArgoCD/apps/aws-load-balancer-controller/values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: network
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - Validate=false
