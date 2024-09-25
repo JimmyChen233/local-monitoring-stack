@@ -2,13 +2,13 @@
 ports:
   web:
     expose:
-      enabled: true
-    port: 80
+      default: true
+    port: 8000
     protocol: TCP
   websecure:
     port: 8443
     expose: 
-      enabled: false
+      default: false
     exposedPort: 443
     protocol: TCP
     tls:
@@ -16,7 +16,7 @@ ports:
   traefik:
     port: 9000
     expose: 
-      enabled: true
+      default: true
     exposedPort: 9000
     protocol: TCP
     tls:
@@ -24,7 +24,7 @@ ports:
   prometheus:
     port: 9090
     expose: 
-      enabled: true
+      default: true
     exposedPort: 9090
     protocol: TCP
 
