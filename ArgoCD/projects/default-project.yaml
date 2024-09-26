@@ -13,8 +13,9 @@ spec:
     - 'https://slok.github.io/sloth'
     - 'https://nerdswords.github.io/helm-charts'
     - 'https://traefik.github.io/charts'
-    - 'https://kubernetes-sigs.github.io/external-dns'
+    - 'oci://registry-1.docker.io/bitnamicharts'
     - 'https://aws.github.io/eks-charts'
+    - 'https://jtblin.github.io/kube2iam'
   destinations:
     - namespace: '*'
       server: https://kubernetes.default.svc

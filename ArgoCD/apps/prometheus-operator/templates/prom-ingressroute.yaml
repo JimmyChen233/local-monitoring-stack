@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: IngressRoute
+metadata:
+  name: prometheus-ingressroute
+  namespace: monitoring
+  annotations:
+    helm.sh/hook: "post-install, post-upgrade"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: “Host(`prometheus.localmonitoringstack.link`)" 
+    kind: Rule
+    services:
+      - name: "prometheus-operator-kube-p-prometheus"
+        port: 9090

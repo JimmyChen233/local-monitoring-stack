@@ -35,14 +35,8 @@ ingressRoute:
 deployment:
   replicas: 1
 service:
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: traefik.localmonitoringstack.com.au
-    service.beta.kubernetes.io/aws-load-balancer-type: external
-    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443, 9000"
-    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
-    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:ap-southeast-2:975050172027:certificate/c920a253-65b1-4c4c-99e6-963f43e3beee
-    service.beta.kubernetes.io/load-balancer-source-ranges: 0.0.0.0/0
+  annotations: {}
+  type: NodePort
 globalArguments:
   - "--api.insecure=true"
 providers:

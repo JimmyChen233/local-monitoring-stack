@@ -64,6 +64,12 @@ variable "deploy_dprs_poc" {
   default     = false
 }
 
+variable "deploy_kube2iam" {
+  description = "Enable deployment of kube2iam"
+  type        = bool
+  default     = false
+}
+
 variable "github_repository_url" {
   description = "GitHub repository url"
   type        = string

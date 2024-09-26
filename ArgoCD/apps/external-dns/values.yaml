@@ -1,21 +1,23 @@
 aws:
   zoneType: public   # Can be 'public' or 'private' for your Route 53 zone type
   region: ap-southeast-2
+  preferCNAME: false
 
 provider: aws
-registry: txt
+registry: noop
 interval: 1m
 txt-owner-id: external-dns
 
 serviceAccount:
   create: true
+  name: external-dns
   annotations:
     eks.amazonaws.com/role-arn: arn:aws:iam::975050172027:role/ExternalDNSRole
-  name: external-dns
+  automountServiceAccountToken: true
 
 sources:
   - service
   - ingress
 
 domainFilters:
-  - localmonitoringstack.com.au
+  - localmonitoringstack.link
