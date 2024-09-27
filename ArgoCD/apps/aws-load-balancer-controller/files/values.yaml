@@ -1,6 +1,7 @@
 replicaCount: 1
 
-awsRegion: ap-southeast-2
+region: ap-southeast-2
+vpcId: vpc-08684b7ae41207277
 
 serviceAccount:
   create: false
