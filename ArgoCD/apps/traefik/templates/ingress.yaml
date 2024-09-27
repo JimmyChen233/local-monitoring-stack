@@ -8,24 +8,23 @@ metadata:
     alb.ingress.kubernetes.io/backend-protocol: HTTP
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-2:975050172027:certificate/36789745-d1c7-46dc-9ab9-b5304f5aa780
     alb.ingress.kubernetes.io/healthcheck-path: /ping
-    alb.ingress.kubernetes.io/healthcheck-port: 8082
+    alb.ingress.kubernetes.io/healthcheck-port: "8082"
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": "80"}, {"HTTPS":"443"}]'
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/security-groups: sg-08cfd2c356e8a343c
-    kubernetes.io/ingress.class: alb 
-    external-dns.alpha.kubernetes.io/hostname: "localmonitoringstack.link"
+    external-dns.alpha.kubernetes.io/hostname: "localmonitoringstack.link,www.localmonitoringstack.link"
   labels:
     app: traefik
 spec:
+  ingressClassName: alb
   rules:
     - http:
         paths:
-          - path: /*
+          - path: "/*"
+            pathType: ImplementationSpecific
             backend:
-              serviceName: ssl-redirect
-              servicePort: use-annotation
-          - path: "/*" 
-            backend:
-              serviceName: traefik
-              servicePort: 443
+              service:
+                name: traefik
+                port:
+                  number: 443
