@@ -1,0 +1,50 @@
+#1
+ports:
+  web:
+    expose:
+      default: true
+    port: 8000
+    protocol: TCP
+  websecure:
+    port: 8443
+    expose: 
+      default: true
+    exposedPort: 443
+    protocol: TCP
+    tls:
+      enabled: false
+  traefik:
+    port: 9000
+    expose: 
+      default: true
+    exposedPort: 9000
+    protocol: TCP
+    tls:
+      enabled: false
+  prometheus:
+    port: 9090
+    expose: 
+      default: true
+    exposedPort: 9090
+    protocol: TCP
+
+#2
+ingressRoute:
+  dashboard:
+    enabled: false
+deployment:
+  replicas: 1
+service:
+  annotations: {}
+  type: NodePort
+globalArguments:
+  - "--api.insecure=true"
+providers:
+  kubernetesIngress:
+    enabled: true
+    ingressClass: traefik
+logs:
+  general:
+    level: DEBUG
+  access:
+    enabled: true

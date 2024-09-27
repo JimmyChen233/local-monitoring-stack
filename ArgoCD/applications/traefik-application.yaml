@@ -10,13 +10,14 @@ spec:
   sources:
     - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
       targetRevision: demo
+      path: 'ArgoCD/apps/traefik'
       ref: values
     - repoURL: https://traefik.github.io/charts
       chart: traefik
       targetRevision: v31.1.0
       helm:
         valueFiles:
-        - $values/ArgoCD/apps/traefik/values.yaml
+        - $values/ArgoCD/apps/traefik/files/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: network
