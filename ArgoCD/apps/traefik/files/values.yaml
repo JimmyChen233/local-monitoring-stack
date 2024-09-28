@@ -45,6 +45,6 @@ providers:
     ingressClass: traefik
 logs:
   general:
-    level: DEBUG
+    level: INFO
   access:
     enabled: true
