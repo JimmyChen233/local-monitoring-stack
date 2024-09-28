@@ -4,8 +4,10 @@ metadata:
     name: prometheus-ingress
     namespace: monitoring
     annotations:
-        external-dns.alpha.kubernetes.io/hostname: "prometheus.localmonitoringstack.link"
-        external-dns.alpha.kubernetes.io/target: "localmonitoringstack.link"
+        alb.ingress.kubernetes.io/scheme: internet-facing
+        alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+        alb.ingress.kubernetes.io/backend-protocol: HTTP
+        external-dns.alpha.kubernetes.io/hostname: "prometheus.localmonitoringstack.link"    
 spec:
     rules:
         - host: "prometheus.localmonitoringstack.link"

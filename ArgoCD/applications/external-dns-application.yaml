@@ -11,7 +11,7 @@ spec:
     - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
       targetRevision: demo
       ref: values
-    - repoURL: oci://registry-1.docker.io/bitnamicharts
+    - repoURL: https://charts.bitnami.com/bitnami
       targetRevision: 8.3.8
       chart: external-dns
       helm:

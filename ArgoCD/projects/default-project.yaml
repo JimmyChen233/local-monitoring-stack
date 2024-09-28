@@ -13,7 +13,7 @@ spec:
     - 'https://slok.github.io/sloth'
     - 'https://nerdswords.github.io/helm-charts'
     - 'https://traefik.github.io/charts'
-    - 'oci://registry-1.docker.io/bitnamicharts'
+    - 'https://charts.bitnami.com/bitnami'
     - 'https://aws.github.io/eks-charts'
     - 'https://jtblin.github.io/kube2iam'
   destinations:
