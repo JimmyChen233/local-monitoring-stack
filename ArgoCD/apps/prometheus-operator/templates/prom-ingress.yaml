@@ -8,4 +8,6 @@ metadata:
         alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
         alb.ingress.kubernetes.io/backend-protocol: HTTP
         external-dns.alpha.kubernetes.io/hostname: "prometheus.localmonitoringstack.link"    
-spec: {}
+spec:
+    rules:
+        - host: "prometheus.localmonitoringstack.link"
