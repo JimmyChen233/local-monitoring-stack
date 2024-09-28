@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: “Host(`prometheus.localmonitoringstack.link`)" 
+  - match: "Host(`prometheus.localmonitoringstack.link`)"
     kind: Rule
     services:
       - name: "prometheus-operator-kube-p-prometheus"
