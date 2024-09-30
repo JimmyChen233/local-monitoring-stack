@@ -1,0 +1,57 @@
+version: "prometheus/v1"
+service: "vhdns"
+labels:
+  ci_number: "CI021241957"
+  owner: "sukanta-maikap"
+  tier: "0"
+  maturity: "2"
+  status: "incubation"
+slos:
+# - name: "dns_queries_success_tcp"
+#   objective: 99.999
+#   description: "SLO based on the DNS queries successfully resolved by vhdns tcp"
+#   sli:
+#     events:
+#       error_query: count_over_time(probe_success{job="blackbox", module=~"dns_tcp.*",domain=~".*vhdns.*"}[{{.window}}]) - sum_over_time(probe_success{job="blackbox", module=~"dns_tcp.*",domain=~".*vhdns.*"}[{{.window}}])
+#       total_query: count_over_time(probe_success{job="blackbox", module=~"dns_tcp.*",domain=~".*vhdns.*"}[{{.window}}])
+#   alerting:
+#     page_alert:
+#       disable: true
+#     ticket_alert:
+#       disable: true
+# - name: "dns_queries_success_udp"
+#   objective: 99.999
+#   description: "SLO based on the DNS queries successfully resolved by vhdns udp"
+#   sli:
+#     events:
+#       error_query: count_over_time(probe_success{job="blackbox", module=~"dns_udp.*",domain=~".*vhdns.*"}[{{.window}}]) - sum_over_time(probe_success{job="blackbox", module=~"dns_udp.*",domain=~".*vhdns.*"}[{{.window}}])
+#       total_query: count_over_time(probe_success{job="blackbox", module=~"dns_udp.*",domain=~".*vhdns.*"}[{{.window}}])
+#   alerting:
+#     page_alert:
+#       disable: true
+#     ticket_alert:
+#       disable: true
+- name: "dns_queries_success_tcp_lessthan_250ms"
+  objective: 99.999
+  description: "SLO based on the DNS queries successfully resolved by vhdns tcp within 250 ms"
+  sli:
+    events:
+      error_query: sum((probe_success{job="blackbox", module=~"dns_tcp.*"} == 1 and (probe_duration_seconds{job="blackbox", module=~"dns_tcp.*"} > 0.25)))
+      total_query: sum((probe_success{job="blackbox", module=~"dns_tcp.*"}))
+  alerting:
+    page_alert:
+      disable: true
+    ticket_alert:
+      disable: true
+# - name: "dns_queries_success_udp_lessthan_250ms"
+#   objective: 99.999
+#   description: "SLO based on the DNS queries successfully resolved by vhdns udp within 250 ms"
+#   sli:
+#     events:
+#       error_query: sum((probe_success{job="blackbox", module=~"dns_udp.*"} == 1 and (probe_dns_lookup_time_seconds{job="blackbox", module=~"dns_udp.*"} > 0.25)))
+#       total_query: sum((probe_success{job="blackbox", module=~"dns_udp.*"}))
+#   alerting:
+#     page_alert:
+#       disable: true
+#     ticket_alert:
+#       disable: true
