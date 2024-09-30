@@ -3,7 +3,7 @@ resource "aws_iam_role" "external_dns_role" {
 
   name = "ExternalDNSRole"
 
-  assume_role_policy = local.assume_role_policy["external-dns"]
+  assume_role_policy = local.assume_role_policy[0]["external-dns"]
 }
 
 resource "aws_iam_policy" "external_dns_policy" {
@@ -39,7 +39,7 @@ resource "aws_iam_role" "dprstestbucket_role" {
   count = var.deploy_dprs_poc ? 1 : 0
   name  = "dprstestbucket-role"
 
-  assume_role_policy = local.assume_role_policy["s3-backup-sa"]
+  assume_role_policy = local.assume_role_policy[0]["s3-backup-sa"]
 }
 
 resource "aws_iam_policy" "dprstestbucket_policy" {
@@ -76,7 +76,7 @@ resource "aws_iam_role" "cloudwatch_exporter_role" {
 
   name = "cloudwatch-exporter-eks-role"
 
-  assume_role_policy = local.assume_role_policy["cloudwatch-exporter-yet-another-cloudwatch-exporter"]
+  assume_role_policy = local.assume_role_policy[0]["cloudwatch-exporter-yet-another-cloudwatch-exporter"]
 }
 
 resource "aws_iam_policy" "cloudwatch_exporter_policy" {
@@ -122,7 +122,7 @@ resource "aws_iam_role" "aws_lb_controller_role" {
 
   name = "aws-load-balancer-controller-eks-role"
 
-  assume_role_policy = local.assume_role_policy["aws-load-balancer-controller"]
+  assume_role_policy = local.assume_role_policy[0]["aws-load-balancer-controller"]
 }
 
 resource "aws_iam_policy" "aws_lb_controller_policy" {

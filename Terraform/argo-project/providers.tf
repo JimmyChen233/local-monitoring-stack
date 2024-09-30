@@ -6,7 +6,7 @@ terraform {
     }
     kind = {
       source  = "tehcyx/kind"
-      version = "0.4.0"
+      version = "0.6.0"
     }
     kubectl = {
       source  = "alekc/kubectl"
@@ -26,7 +26,8 @@ provider "helm" {
   kubernetes {
     host                   = local.host
     cluster_ca_certificate = local.cluster_ca_certificate
-
+    client_certificate     = local.client_certificate
+    client_key             = local.client_key
     dynamic "exec" {
       for_each = local.is_eks ? [1] : []
       content {
@@ -42,6 +43,8 @@ provider "helm" {
 provider "kubectl" {
   host                   = local.host
   cluster_ca_certificate = local.cluster_ca_certificate
+  client_certificate     = local.client_certificate
+  client_key             = local.client_key
   load_config_file       = false
 
   dynamic "exec" {
