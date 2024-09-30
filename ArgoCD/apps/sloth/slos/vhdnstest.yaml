@@ -28,8 +28,10 @@ slos:
     description: "SLO based on the DNS queries successfully resolved by vhdns tcp within 250 ms"
     sli:
       events:
-        error_query: sum((probe_success{job="blackbox", module=~"dns_tcp.*"} == 1 and (probe_duration_seconds{job="blackbox", module=~"dns_tcp.*"} > 0.25)))
-        total_query: sum((probe_success{job="blackbox", module=~"dns_tcp.*"}))
+        error_query: |
+          sum((probe_success{job="blackbox", module=~"dns_tcp.*"} == 1 and (probe_duration_seconds{job="blackbox", module=~"dns_tcp.*"} > 0.25)))
+        total_query: |
+          sum((probe_success{job="blackbox", module=~"dns_tcp.*"}))
     alerting:
       page_alert:
         disable: true
