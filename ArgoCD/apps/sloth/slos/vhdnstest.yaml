@@ -30,10 +30,3 @@ slos:
               le="+Inf"
             }[{{.window}}:])
           )
-    alerting:
-      page_alert:
-        name: "coredns-page-alert"
-        disable: true
-      ticket_alert:
-        name: "coredns-ticket-alert"
-        disable: true
