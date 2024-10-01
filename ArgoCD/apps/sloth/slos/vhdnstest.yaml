@@ -30,8 +30,3 @@ slos:
               le="+Inf"
             }[{{.window}}:])
           )
-    alerting:
-      page_alert:
-        disable: true
-      ticket_alert:
-        disable: true
