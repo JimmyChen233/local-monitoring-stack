@@ -1,35 +1,17 @@
-slos:
-# - name: "dns_queries_success_tcp"
-#   objective: 99.999
-#   description: "SLO based on the DNS queries successfully resolved by vhdns tcp"
-#   sli:
-#     events:
-#       error_query: count_over_time(probe_success{job="blackbox", module=~"dns_tcp.*",domain=~".*vhdns.*"}[{{.window}}]) - sum_over_time(probe_success{job="blackbox", module=~"dns_tcp.*",domain=~".*vhdns.*"}[{{.window}}])
-#       total_query: count_over_time(probe_success{job="blackbox", module=~"dns_tcp.*",domain=~".*vhdns.*"}[{{.window}}])
-#   alerting:
-#     page_alert:
-#       disable: true
-#     ticket_alert:
-#       disable: true
-# - name: "dns_queries_success_udp"
-#   objective: 99.999
-#   description: "SLO based on the DNS queries successfully resolved by vhdns udp"
-#   sli:
-#     events:
-#       error_query: count_over_time(probe_success{job="blackbox", module=~"dns_udp.*",domain=~".*vhdns.*"}[{{.window}}]) - sum_over_time(probe_success{job="blackbox", module=~"dns_udp.*",domain=~".*vhdns.*"}[{{.window}}])
-#       total_query: count_over_time(probe_success{job="blackbox", module=~"dns_udp.*",domain=~".*vhdns.*"}[{{.window}}])
-#   alerting:
-#     page_alert:
-#       disable: true
-#     ticket_alert:
-#       disable: true
-  - name: "dns_queries_success_tcp_lessthan_250ms"
-    objective: 99.999
-    description: "SLO based on the DNS queries successfully resolved by vhdns tcp within 250 ms"
-    sli:
-      events:
-        error_query: |
-          sum by(pod, probe_type) (
+apiVersion: sloth.slok.dev/v1
+kind: PrometheusServiceLevel
+metadata:
+  name: sloth-slo-vhdnstest
+spec:
+  service: dns-liveness
+  slos:
+    - name: "dns_queries_success_tcp_lessthan_250ms"
+      objective: 99.999
+      description: "SLO based on the DNS queries successfully resolved by vhdns tcp within 250 ms"
+      sli:
+        events:
+          errorQuery: |
+            sum by(pod, probe_type) (
               rate(prober_probe_duration_seconds_bucket{
                 container="coredns",
                 endpoint="https-metrics",
@@ -38,11 +20,11 @@ slos:
                 pod="coredns-6f6b679f8f-5ncpr",
                 probe_type="Liveness",
                 service="prometheus-operator-kube-p-kubelet",
-                le="0.005"
-              }[{{.window}}])
+                le="0.25"
+              }[{{.window}}:])
             )
-        total_query: |
-          sum by(pod, probe_type) (
+          totalQuery: |
+            sum by(pod, probe_type) (
               rate(prober_probe_duration_seconds_bucket{
                 container="coredns",
                 endpoint="https-metrics",
@@ -52,22 +34,10 @@ slos:
                 probe_type="Liveness",
                 service="prometheus-operator-kube-p-kubelet",
                 le="+Inf"
-              }[{{.window}}])
+              }[{{.window}}:])
             )
-    alerting:
-      page_alert:
-        disable: true
-      ticket_alert:
-        disable: true
-# - name: "dns_queries_success_udp_lessthan_250ms"
-#   objective: 99.999
-#   description: "SLO based on the DNS queries successfully resolved by vhdns udp within 250 ms"
-#   sli:
-#     events:
-#       error_query: sum((probe_success{job="blackbox", module=~"dns_udp.*"} == 1 and (probe_dns_lookup_time_seconds{job="blackbox", module=~"dns_udp.*"} > 0.25)))
-#       total_query: sum((probe_success{job="blackbox", module=~"dns_udp.*"}))
-#   alerting:
-#     page_alert:
-#       disable: true
-#     ticket_alert:
-#       disable: true
+      alerting:
+        page_alert:
+          disable: true
+        ticket_alert:
+          disable: true
