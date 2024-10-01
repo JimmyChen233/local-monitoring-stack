@@ -30,15 +30,21 @@ slos:
               le="+Inf"
             }[{{.window}}:])
           )
+
     alerting:
-      page_alert:
+      annotations:
+        summary: >-
+          Probe duration for dns_tcp queries has latency higher than 250ms
+      labels:
+        category: availability
+      name: DNSQueriesSuccessTCPLatencyHigh
+      pageAlert:
         labels:
-          severity: pageteam
           routing_key: myteam
+          severity: pageteam
         expr: |
           slo:current_burn_rate:ratio{sloth_service="dns_queries_success_tcp_lessthan_250ms"} > 1.5
-      ticket_alert:
+      ticketAlert:
         labels:
-          severity: "slack"
-          slack_channel: "#alerts-myteam"            # Disables the alert
-      
+          severity: slack
+          slack_channel: '#alerts-myteam'
