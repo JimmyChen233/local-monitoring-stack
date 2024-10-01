@@ -29,9 +29,9 @@ slos:
     sli:
       events:
         error_query: |
-          sum((probe_success{job="blackbox", module=~"dns_tcp.*"} == 1 and (probe_duration_seconds{job="blackbox", module=~"dns_tcp.*"} > 0.25)))
+          sum by(pod, probe_type) (prober_probe_duration_seconds_bucket{container="coredns", endpoint="https-metrics", instance="172.18.0.4:10250", job="kubelet",pod="coredns-6f6b679f8f-5ncpr", probe_type="Liveness", service="prometheus-operator-kube-p-kubelet", le="0.005"})
         total_query: |
-          sum((probe_success{job="blackbox", module=~"dns_tcp.*"}))
+          sum by(pod, probe_type) (prober_probe_duration_seconds_bucket{container="coredns", endpoint="https-metrics", instance="172.18.0.4:10250", job="kubelet",pod="coredns-6f6b679f8f-5ncpr", probe_type="Liveness", service="prometheus-operator-kube-p-kubelet", le="+Inf"})
     alerting:
       page_alert:
         disable: true
