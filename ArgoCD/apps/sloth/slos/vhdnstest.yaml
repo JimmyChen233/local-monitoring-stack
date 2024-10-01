@@ -30,3 +30,11 @@ slos:
               le="+Inf"
             }[{{.window}}:])
           )
+    alerting:
+      page_alert:
+        name: "dns-tcp-page-alert"   # Required name field
+        disable: true                # Disables the alert
+      ticket_alert:
+        name: "dns-tcp-ticket-alert" # Required name field
+        disable: true                # Disables the alert
+      
