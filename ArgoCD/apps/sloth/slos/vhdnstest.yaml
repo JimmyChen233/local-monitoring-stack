@@ -1,43 +1,37 @@
-apiVersion: sloth.slok.dev/v1
-kind: PrometheusServiceLevel
-metadata:
-  name: sloth-slo-vhdnstest
-spec:
-  service: dns-liveness
-  slos:
-    - name: "dns_queries_success_tcp_lessthan_250ms"
-      objective: 99.999
-      description: "SLO based on the DNS queries successfully resolved by vhdns tcp within 250 ms"
-      sli:
-        events:
-          errorQuery: |
-            sum by(pod, probe_type) (
-              rate(prober_probe_duration_seconds_bucket{
-                container="coredns",
-                endpoint="https-metrics",
-                instance="172.18.0.4:10250",
-                job="kubelet",
-                pod="coredns-6f6b679f8f-5ncpr",
-                probe_type="Liveness",
-                service="prometheus-operator-kube-p-kubelet",
-                le="0.25"
-              }[{{.window}}:])
-            )
-          totalQuery: |
-            sum by(pod, probe_type) (
-              rate(prober_probe_duration_seconds_bucket{
-                container="coredns",
-                endpoint="https-metrics",
-                instance="172.18.0.4:10250",
-                job="kubelet",
-                pod="coredns-6f6b679f8f-5ncpr",
-                probe_type="Liveness",
-                service="prometheus-operator-kube-p-kubelet",
-                le="+Inf"
-              }[{{.window}}:])
-            )
-      alerting:
-        page_alert:
-          disable: true
-        ticket_alert:
-          disable: true
+slos:
+  - name: "dns_queries_success_tcp_lessthan_250ms"
+    objective: 99.999
+    description: "SLO based on the DNS queries successfully resolved by vhdns tcp within 250 ms"
+    sli:
+      events:
+        errorQuery: |
+          sum by(pod, probe_type) (
+            rate(prober_probe_duration_seconds_bucket{
+              container="coredns",
+              endpoint="https-metrics",
+              instance="172.18.0.4:10250",
+              job="kubelet",
+              pod="coredns-6f6b679f8f-5ncpr",
+              probe_type="Liveness",
+              service="prometheus-operator-kube-p-kubelet",
+              le="0.25"
+            }[{{.window}}:])
+          )
+        totalQuery: |
+          sum by(pod, probe_type) (
+            rate(prober_probe_duration_seconds_bucket{
+              container="coredns",
+              endpoint="https-metrics",
+              instance="172.18.0.4:10250",
+              job="kubelet",
+              pod="coredns-6f6b679f8f-5ncpr",
+              probe_type="Liveness",
+              service="prometheus-operator-kube-p-kubelet",
+              le="+Inf"
+            }[{{.window}}:])
+          )
+    alerting:
+      page_alert:
+        disable: true
+      ticket_alert:
+        disable: true
