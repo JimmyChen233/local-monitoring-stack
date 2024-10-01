@@ -1,0 +1,28 @@
+slos:
+  - name: "dns_queries_success_tcp_lessthan_250ms"
+    objective: 99.999
+    description: "SLO based on the DNS queries successfully resolved by vhdns tcp within 250 ms"
+    sli:
+      events:
+        errorQuery: |
+          count_over_time((probe_dns_duration_seconds{job="blackbox", module=~"dns_udp.*",domain=~".*vhdns.*"} < 0.25 )[{{.window}}:])
+        totalQuery: |
+          count_over_time((probe_dns_duration_seconds{job="blackbox", module=~"dns_udp.*",domain=~".*vhdns.*"} )[{{.window}}:])
+
+    alerting:
+      annotations:
+        summary: >-
+          Probe duration for dns_tcp queries has latency higher than 250ms
+      labels:
+        category: availability
+      name: DNSQueriesSuccessTCPLatencyHigh
+      pageAlert:
+        labels:
+          routing_key: myteam
+          severity: pageteam
+        expr: |
+          slo:current_burn_rate:ratio{sloth_service="dns_queries_success_tcp_lessthan_250ms"} > 1.5
+      ticketAlert:
+        labels:
+          severity: slack
+          slack_channel: '#alerts-myteam'
