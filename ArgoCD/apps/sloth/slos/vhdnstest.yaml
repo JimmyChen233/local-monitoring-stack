@@ -32,9 +32,13 @@ slos:
           )
     alerting:
       page_alert:
-        name: "dns-tcp-page-alert"   # Required name field
-        disable: true                # Disables the alert
+        labels:
+          severity: pageteam
+          routing_key: myteam
+        expr: |
+          slo:current_burn_rate:ratio{sloth_service="dns_queries_success_tcp_lessthan_250ms"} > 1.5
       ticket_alert:
-        name: "dns-tcp-ticket-alert" # Required name field
-        disable: true                # Disables the alert
+        labels:
+          severity: "slack"
+          slack_channel: "#alerts-myteam"            # Disables the alert
       
