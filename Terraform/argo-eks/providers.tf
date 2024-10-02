@@ -26,16 +26,11 @@ provider "helm" {
   kubernetes {
     host                   = local.host
     cluster_ca_certificate = local.cluster_ca_certificate
-    client_certificate     = local.client_certificate
-    client_key             = local.client_key
-    dynamic "exec" {
-      for_each = local.is_eks ? [1] : []
-      content {
-        api_version = local.kubectl_exec.api_version
-        command     = local.kubectl_exec.command
-        args        = local.kubectl_exec.args
-        env         = local.kubectl_exec.env
-      }
+    exec {
+      api_version = local.kubectl_exec.api_version
+      command     = local.kubectl_exec.command
+      args        = local.kubectl_exec.args
+      env         = local.kubectl_exec.env
     }
   }
 }

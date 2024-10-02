@@ -5,9 +5,9 @@ slos:
     sli:
       events:
         errorQuery: |
-          count_over_time((probe_dns_duration_seconds{job="blackbox", module=~"dns_udp.*",domain=~".*vhdns.*"} < 0.25 )[{{.window}}:])
+          sum without (instance, module) (count_over_time((probe_dns_duration_seconds{job="blackbox", domain=~".*vhdns.*"} < 0.25 )[{{.window}}:]))
         totalQuery: |
-          count_over_time((probe_dns_duration_seconds{job="blackbox", module=~"dns_udp.*",domain=~".*vhdns.*"} )[{{.window}}:])
+          sum without (instance, module) (count_over_time((probe_dns_duration_seconds{job="blackbox", domain=~".*vhdns.*"} )[{{.window}}:]))
 
     alerting:
       annotations:

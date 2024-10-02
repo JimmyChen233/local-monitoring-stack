@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stateful-blackbox-exporter-config
+  labels:
+    app: stateful-blackbox-exporter
+    chart: stateful-blackbox-exporter
+data:
+  config.yaml: |
+{{ (.Files.Get "files/config.yaml") | nindent 4 }}

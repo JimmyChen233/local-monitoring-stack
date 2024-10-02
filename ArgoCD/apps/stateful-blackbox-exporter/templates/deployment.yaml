@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stateful-blackbox-exporter
+  labels:
+    app: stateful-blackbox-exporter
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: stateful-blackbox-exporter
+  template:
+    metadata:
+      labels:
+        app: stateful-blackbox-exporter
+    spec:
+      containers:
+      - name: stateful-blackbox-exporter
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - containerPort: 8080
+        volumeMounts:
+          - name: config-volume
+            mountPath: /app/config.yaml
+            subPath: config.yaml
+      volumes:
+        - name: config-volume
+          configMap:
+            name: stateful-blackbox-exporter-config

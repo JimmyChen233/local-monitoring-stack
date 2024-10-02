@@ -1,0 +1,14 @@
+# values.yaml
+
+replicaCount: 1
+
+image:
+  repository: stateful-blackbox-exporter
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources: {}

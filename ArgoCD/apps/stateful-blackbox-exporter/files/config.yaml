@@ -1,0 +1,48 @@
+modules:
+  # http_2xx_example:
+  #   prober: http
+  #   timeout: 5s
+  #   interval: 10s  # Probe interval (how often to run the probe)
+  #   http:
+  #     valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+  #     valid_status_codes: []  # Defaults to 2xx
+  #     method: GET
+  #     headers:
+  #       Host: vhost.example.com
+  #       Accept-Language: en-US
+  #       Origin: example.com
+  #     follow_redirects: true
+  tcp_connect_example:
+    prober: tcp
+    target: "example.com:80"  # Specify the target domain and port
+    timeout: 5s
+    interval: 10s
+    tcp:
+      ip_protocol: "ip4"
+      ip_protocol_fallback: true
+      source_ip_address: "127.0.0.1"
+      tls: false
+  dns_udp_example:
+    prober: dns
+    timeout: 5s
+    interval: 10s
+    dns:
+      query_name: "www.prometheus.io"
+      query_type: "A"
+      valid_rcodes:
+        - NOERROR
+      validate_answer_rrs:
+        fail_if_matches_regexp:
+          - ".*127.0.0.1"
+        fail_if_all_match_regexp:
+          - ".*127.0.0.1"
+        fail_if_not_matches_regexp:
+          - "www.prometheus.io.\t300\tIN\tA\t127.0.0.1"
+        fail_if_none_matches_regexp:
+          - "127.0.0.1"
+      validate_authority_rrs:
+        fail_if_matches_regexp:
+          - ".*127.0.0.1"
+      validate_additional_rrs:
+        fail_if_matches_regexp:
+          - ".*127.0.0.1"

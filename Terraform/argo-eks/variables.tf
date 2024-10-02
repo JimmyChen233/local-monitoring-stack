@@ -10,12 +10,6 @@ variable "aws_profile" {
   description = "aws profile"
 }
 
-variable "cluster_type" {
-  description = "The target Kubernetes cluster type is eks/kind"
-  type        = string
-  default     = "kind"
-}
-
 variable "deploy_traefik" {
   description = "Enable deployment of traefik"
   type        = bool
@@ -24,6 +18,12 @@ variable "deploy_traefik" {
 
 variable "deploy_external_dns" {
   description = "Enable deployment of external_dns"
+  type        = bool
+  default     = false
+}
+
+variable "deploy_grafana_mimir" {
+  description = "Enable deployment of grafana_mimir"
   type        = bool
   default     = false
 }

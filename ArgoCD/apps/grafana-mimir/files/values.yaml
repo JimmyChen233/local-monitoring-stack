@@ -1,0 +1,14 @@
+storage:
+  type: filesystem
+  filesystem:
+    dir: /data/mimir
+blocks_storage:
+  tsdb:
+    dir: /data/blocks
+replication_factor: 1
+distributor:
+  replicas: 1
+ingester:
+  replicas: 1
+query_frontend:
+  replicas: 1

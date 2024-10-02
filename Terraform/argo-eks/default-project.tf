@@ -44,13 +44,23 @@ resource "kubectl_manifest" "argocd_external_dns_application" {
   ]
 }
 
-resource "kubectl_manifest" "argocd_prometheus_operator_application" {
-  count     = var.deploy_prometheus_operator ? 1 : 0
-  yaml_body = file("${path.module}/../../ArgoCD/applications/prometheus-operator-application.yaml")
+resource "kubectl_manifest" "argocd_grafana_mimir_application" {
+  count     = var.deploy_grafana_mimir ? 1 : 0
+  yaml_body = file("${path.module}/../../ArgoCD/applications/grafana-mimir-application.yaml")
   depends_on = [
     kubectl_manifest.argocd_traefik_application
   ]
 }
+
+resource "kubectl_manifest" "argocd_prometheus_operator_application" {
+  count     = var.deploy_prometheus_operator ? 1 : 0
+  yaml_body = file("${path.module}/../../ArgoCD/applications/prometheus-operator-application.yaml")
+  depends_on = [
+    kubectl_manifest.argocd_grafana_mimir_application
+  ]
+}
+
+
 
 resource "kubectl_manifest" "argocd_grafana_operator_application" {
   count     = var.deploy_grafana_operator ? 1 : 0
@@ -59,6 +69,8 @@ resource "kubectl_manifest" "argocd_grafana_operator_application" {
     kubectl_manifest.argocd_prometheus_operator_application
   ]
 }
+
+
 
 resource "kubectl_manifest" "argocd_prometheus_config_application" {
   count     = var.deploy_prometheus_operator ? 1 : 0
