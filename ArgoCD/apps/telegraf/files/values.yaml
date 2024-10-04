@@ -12,7 +12,17 @@ podLabels: {}
 imagePullSecrets: []
 ## Configure args passed to Telegraf containers
 args: []
-# envFromSecret: "telegraf-tokens"
+
+initContainers:
+  - name: init-permissions
+    image: alpine:latest
+    command: ['sh', '-c', 'cp /scripts/probe_google.sh /tmp/probe_google.sh && chmod +x /tmp/probe_google.sh']
+    volumeMounts:
+      - name: telegraf-probe-script
+        mountPath: /scripts
+      - name: script-tmp
+        mountPath: /tmp
+
 env:
   - name: HOSTNAME
     value: "telegraf-polling-service"
@@ -64,7 +74,7 @@ config:
         path: "/metrics"
   inputs:
     - exec:
-        commands: ["/scripts/probe_google.sh"]
+        commands: ["/tmp/probe_google.sh"]
         timeout: "5s"
         data_format: "prometheus"
         name_suffix: "_probe"
