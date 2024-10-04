@@ -16,6 +16,14 @@ args: []
 env:
   - name: HOSTNAME
     value: "telegraf-polling-service"
+volumes:
+- name: telegraf-probe-script
+  configMap:
+    name: "telegraf-probe-script"
+mountPoints:
+- name: telegraf-probe-script
+  mountPath: /etc/telegraf/scripts
+  subPath: probe_google.sh
 resources: {}
 # requests:
 #   memory: 128Mi
@@ -48,43 +56,19 @@ serviceAccount:
 
 config:
   agent:
-    interval: "10s"
+    interval: "30s"
     round_interval: true
-    metric_batch_size: 1000
-    metric_buffer_limit: 10000
-    collection_jitter: "0s"
-    flush_interval: "10s"
-    flush_jitter: "0s"
-    precision: ""
-    debug: false
-    quiet: false
-    logfile: ""
-    hostname: "$HOSTNAME"
-    omit_hostname: false
-  processors:
-    - enum:
-        mapping:
-          field: "status"
-          dest: "status_code"
-          value_mappings:
-            healthy: 1
-            problem: 2
-            critical: 3
   outputs:
-    - influxdb:
-        urls:
-          - "http://influxdb.monitoring.svc:8086"
-        database: "telegraf"
+    - prometheus_client:
+        listen: ":9273"
+        path: "/metrics"
   inputs:
-    - statsd:
-        service_address: ":8125"
-        percentiles:
-          - 50
-          - 95
-          - 99
-        metric_separator: "_"
-        allowed_pending_messages: 10000
-        percentile_limit: 1000
+    - exec:
+        commands: ["/etc/telegraf/scripts/probe_google.sh"]
+        timeout: "5s"
+        data_format: "prometheus"
+        name_suffix: "_probe"
+        interval: "30s"
 metrics:
   health:
     enabled: false

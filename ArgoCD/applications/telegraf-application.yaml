@@ -13,14 +13,14 @@ spec:
       path: 'ArgoCD/apps/telegraf'
       ref: values
     - repoURL: 'https://helm.influxdata.com'
-      targetRevision: 1.4.0
-      chart: telegraf-operator
+      targetRevision: 1.8.54
+      chart: telegraf
       helm:
         valueFiles:
         - $values/ArgoCD/apps/telegraf/files/values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: kube-system
+    namespace: telegraf
   syncPolicy:
     automated:
       prune: true
