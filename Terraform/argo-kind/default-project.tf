@@ -34,6 +34,16 @@ resource "kubectl_manifest" "argocd_traefik_application" {
   ]
 }
 
+resource "kubectl_manifest" "argocd_telegraf_application" {
+  count     = var.deploy_telegraf ? 1 : 0
+  yaml_body = file("${path.module}/../../ArgoCD/applications/telegraf-application.yaml")
+  depends_on = [
+    kubectl_manifest.argocd_default_project,
+    kubectl_manifest.argocd_namespaces,
+    kubectl_manifest.argocd_crd
+  ]
+}
+
 resource "kubectl_manifest" "argocd_external_dns_application" {
   count     = var.deploy_external_dns ? 1 : 0
   yaml_body = file("${path.module}/../../ArgoCD/applications/external-dns-application.yaml")

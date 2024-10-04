@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: telegraf
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default-project
+  sources:
+    - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
+      targetRevision: demo
+      path: 'ArgoCD/apps/telegraf'
+      ref: values
+    - repoURL: https://helm.influxdata.com
+      targetRevision: 1.8.54
+      chart: influxdata/telegraf
+      helm:
+        valueFiles:
+        - $values/ArgoCD/apps/telegraf/files/values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - Validate=false

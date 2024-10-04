@@ -1,0 +1,109 @@
+## Default values.yaml for Telegraf
+## This is a YAML-formatted file.
+## ref: https://hub.docker.com/r/library/telegraf/tags/
+
+replicaCount: 1
+image:
+  repo: "docker.io/library/telegraf"
+  tag: "1.32-alpine"
+  pullPolicy: IfNotPresent
+podAnnotations: {}
+podLabels: {}
+imagePullSecrets: []
+## Configure args passed to Telegraf containers
+args: []
+# envFromSecret: "telegraf-tokens"
+env:
+  - name: HOSTNAME
+    value: "telegraf-polling-service"
+resources: {}
+# requests:
+#   memory: 128Mi
+#   cpu: 100m
+# limits:
+#   memory: 128Mi
+#   cpu: 100m
+nodeSelector: {}
+affinity: {}
+tolerations: []
+updateStrategy: {}
+
+service:
+  enabled: true
+  type: ClusterIP
+  annotations: {}
+rbac:
+  # Specifies whether RBAC resources should be created
+  create: true
+  # Create only for the release namespace or cluster wide (Role vs ClusterRole)
+  clusterWide: false
+  # Rules for the created rule
+  rules: []
+
+serviceAccount:
+  # Specifies whether a ServiceAccount should be created
+  create: true
+  name:
+  annotations: {}
+
+config:
+  agent:
+    interval: "10s"
+    round_interval: true
+    metric_batch_size: 1000
+    metric_buffer_limit: 10000
+    collection_jitter: "0s"
+    flush_interval: "10s"
+    flush_jitter: "0s"
+    precision: ""
+    debug: false
+    quiet: false
+    logfile: ""
+    hostname: "$HOSTNAME"
+    omit_hostname: false
+  processors:
+    - enum:
+        mapping:
+          field: "status"
+          dest: "status_code"
+          value_mappings:
+            healthy: 1
+            problem: 2
+            critical: 3
+  outputs:
+    - influxdb:
+        urls:
+          - "http://influxdb.monitoring.svc:8086"
+        database: "telegraf"
+  inputs:
+    - statsd:
+        service_address: ":8125"
+        percentiles:
+          - 50
+          - 95
+          - 99
+        metric_separator: "_"
+        allowed_pending_messages: 10000
+        percentile_limit: 1000
+metrics:
+  health:
+    enabled: false
+    service_address: "http://:8888"
+    threshold: 5000.0
+  internal:
+    enabled: true
+    collect_memstats: false
+
+## Pod disruption budget configuration
+##
+pdb:
+  ## Specifies whether a Pod disruption budget should be created
+  ##
+  create: true
+  minAvailable: 1
+  # maxUnavailable: 1
+
+# containerPorts:
+# - name: http
+#   containerPort: 9273
+#   protocol: TCP

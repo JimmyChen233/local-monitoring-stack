@@ -10,6 +10,12 @@ variable "deploy_external_dns" {
   default     = false
 }
 
+variable "deploy_telegraf" {
+  description = "Enable deployment of telegraf"
+  type        = bool
+  default     = false
+}
+
 variable "deploy_grafana_mimir" {
   description = "Enable deployment of grafana_mimir"
   type        = bool
