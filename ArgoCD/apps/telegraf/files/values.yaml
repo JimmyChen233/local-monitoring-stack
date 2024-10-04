@@ -22,7 +22,7 @@ volumes:
     name: "telegraf-probe-script"
 mountPoints:
 - name: telegraf-probe-script
-  mountPath: /scripts
+  mountPath: /scripts/probe_google.sh
   subPath: probe_google.sh
 resources: {}
 # requests:
