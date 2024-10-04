@@ -22,7 +22,7 @@ volumes:
     name: "telegraf-probe-script"
 mountPoints:
 - name: telegraf-probe-script
-  mountPath: /etc/telegraf/scripts
+  mountPath: /scripts
   subPath: probe_google.sh
 resources: {}
 # requests:
@@ -64,7 +64,7 @@ config:
         path: "/metrics"
   inputs:
     - exec:
-        commands: ["/etc/telegraf/scripts/probe_google.sh"]
+        commands: ["/scripts/probe_google.sh"]
         timeout: "5s"
         data_format: "prometheus"
         name_suffix: "_probe"
