@@ -16,6 +16,7 @@ spec:
     - 'https://charts.bitnami.com/bitnami'
     - 'https://aws.github.io/eks-charts'
     - 'https://jtblin.github.io/kube2iam'
+    - 'https://helm.influxdata.com'
   destinations:
     - namespace: '*'
       server: https://kubernetes.default.svc

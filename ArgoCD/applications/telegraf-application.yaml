@@ -12,9 +12,9 @@ spec:
       targetRevision: demo
       path: 'ArgoCD/apps/telegraf'
       ref: values
-    - repoURL: https://helm.influxdata.com
-      targetRevision: 1.8.54
-      chart: influxdata/telegraf
+    - repoURL: 'https://helm.influxdata.com'
+      targetRevision: 1.4.0
+      chart: telegraf-operator
       helm:
         valueFiles:
         - $values/ArgoCD/apps/telegraf/files/values.yaml

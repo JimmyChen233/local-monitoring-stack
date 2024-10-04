@@ -12,7 +12,7 @@ spec:
       targetRevision: demo
       path: 'ArgoCD/apps/aws-load-balancer-controller'
       ref: values
-    - repoURL: https://aws.github.io/eks-charts
+    - repoURL: 'https://aws.github.io/eks-charts'
       targetRevision: 1.8.3
       chart: aws-load-balancer-controller
       helm:
