@@ -8,11 +8,4 @@ data:
 {{ .Values.config.telegrafConf | nindent 4 }}
 
   ping_script.sh: |
-    #!/bin/bash
-    ping_time=$(ping -c 1 google.com | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}')
-    if [ -z "$ping_time" ]; then
-      ping_time=-1
-    fi
-    echo "# HELP ping_response_time_seconds Response time of ping to google.com"
-    echo "# TYPE ping_response_time_seconds gauge"
-    echo "ping_response_time_seconds $ping_time"
+{{ (.Files.Get "scripts/ping_script.sh") | nindent 4 }}
