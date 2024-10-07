@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Log start time
+echo "Running ping_script.sh at $(date)" >> /tmp/ping_log.txt
+
 # Ping google.com and capture the time it took
 ping_output=$(ping -c 1 google.com 2>&1)
 
@@ -22,3 +25,6 @@ echo "probe_success $ping_success"
 echo "# HELP probe_duration_seconds Duration of the ping probe in seconds"
 echo "# TYPE probe_duration_seconds gauge"
 echo "probe_duration_seconds $ping_time"
+
+# Log completion
+echo "Completed ping_script.sh at $(date)" >> /tmp/ping_log.txt
