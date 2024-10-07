@@ -16,7 +16,9 @@ spec:
       initContainers:
         - name: init-script
           image: busybox
-          command: ["chmod", "+x", "/scripts/ping_script.sh"]
+          command: [ "sh", "-c" ]
+          args:
+            - chmod +x /scripts/ping_script.sh
           volumeMounts:
             - name: scripts
               mountPath: /scripts
