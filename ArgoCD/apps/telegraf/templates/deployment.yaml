@@ -18,7 +18,7 @@ spec:
           image: busybox
           command: [ "sh", "-c" ]
           args:
-            - chmod +x /scripts/ping_script.sh
+            - cp /scripts/ping_script.sh /tmp/ping_script.sh && chmod +x /tmp/ping_script.sh
           volumeMounts:
             - name: scripts
               mountPath: /scripts
@@ -29,8 +29,6 @@ spec:
             - name: config
               mountPath: /etc/telegraf/telegraf.conf
               subPath: telegraf.conf
-            - name: scripts
-              mountPath: /scripts
           ports:
             - containerPort: 9273
       volumes:
