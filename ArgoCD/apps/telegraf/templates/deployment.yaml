@@ -18,10 +18,12 @@ spec:
           image: busybox
           command: [ "sh", "-c" ]
           args:
-            - cp /scripts/ping_script.sh /tmp/ping_script.sh && chmod +x /tmp/ping_script.sh
+            - cp /scripts/ping_script.sh /shared/ping_script.sh && chmod +x /shared/ping_script.sh
           volumeMounts:
             - name: scripts
               mountPath: /scripts
+            - name: shared
+              mountPath: /shared
       containers:
         - name: telegraf
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -29,8 +31,8 @@ spec:
             - name: config
               mountPath: /etc/telegraf/telegraf.conf
               subPath: telegraf.conf
-            - name: scripts
-              mountPath: /scripts
+            - name: shared
+              mountPath: /tmp
           ports:
             - containerPort: 9273
       volumes:
@@ -46,3 +48,5 @@ spec:
             items:
               - key: ping_script.sh
                 path: ping_script.sh
+        - name: shared
+          emptyDir: {}
