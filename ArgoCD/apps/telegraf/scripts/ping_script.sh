@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Ping google.com and capture the time it took
 ping_output=$(ping -c 1 google.com 2>&1)
