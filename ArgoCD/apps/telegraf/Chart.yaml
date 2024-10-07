@@ -1,6 +1,6 @@
 apiVersion: v2
-name: telegraf-config
-description: A Helm chart for Kubernetes
+name: telegraf
+description: A Helm chart for telegraf
 
 # A chart can be either an 'application' or a 'library' chart.
 #
