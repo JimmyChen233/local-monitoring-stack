@@ -5,7 +5,7 @@ metadata:
   namespace: telegraf
 data:
   telegraf.conf: |
-    {{ .Values.config.telegrafConf | indent 4 }}
+{{ .Values.config.telegrafConf | nindent 4 }}
 
   ping_script.sh: |
     #!/bin/bash
