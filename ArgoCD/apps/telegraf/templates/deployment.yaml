@@ -1,18 +1,33 @@
-apiVersion: v1
-kind: ConfigMap
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: telegraf-config
+  name: {{ .Release.Name }}
   namespace: telegraf
-data:
-  telegraf.conf: |
-    {{ .Values.config.telegrafConf | indent 4 }}
-
-  ping_script.sh: |
-    #!/bin/bash
-    ping_time=$(ping -c 1 google.com | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}')
-    if [ -z "$ping_time" ]; then
-      ping_time=-1
-    fi
-    echo "# HELP ping_response_time_seconds Response time of ping to google.com"
-    echo "# TYPE ping_response_time_seconds gauge"
-    echo "ping_response_time_seconds $ping_time"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: telegraf
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          volumeMounts:
+            - name: config
+              mountPath: /etc/telegraf/telegraf.conf
+              subPath: telegraf.conf
+            - name: scripts
+              mountPath: /scripts
+          ports:
+            - containerPort: 9273
+      volumes:
+        - name: config
+          configMap:
+            name: telegraf-config
+        - name: scripts
+          configMap:
+            name: telegraf-config
