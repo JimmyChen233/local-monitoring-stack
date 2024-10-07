@@ -13,6 +13,13 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      initContainers:
+        - name: init-script
+          image: busybox
+          command: ["chmod", "+x", "/scripts/ping_script.sh"]
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
       containers:
         - name: telegraf
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
