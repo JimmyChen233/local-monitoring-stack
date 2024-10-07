@@ -35,7 +35,7 @@ config:
       logfile = ""
 
     [[inputs.exec]]
-      commands = ["/tmp/ping_script.sh"]
+      commands = ["sh -c '/tmp/ping_script.sh'"]
       timeout = "5s"
       data_format = "prometheus"
       name_suffix = "_ping"
