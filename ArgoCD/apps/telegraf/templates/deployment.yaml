@@ -29,12 +29,20 @@ spec:
             - name: config
               mountPath: /etc/telegraf/telegraf.conf
               subPath: telegraf.conf
+            - name: scripts
+              mountPath: /scripts
           ports:
             - containerPort: 9273
       volumes:
         - name: config
           configMap:
             name: telegraf-config
+            items:
+              - key: telegraf.conf
+                path: telegraf.conf
         - name: scripts
           configMap:
             name: telegraf-config
+            items:
+              - key: ping_script.sh
+                path: ping_script.sh
