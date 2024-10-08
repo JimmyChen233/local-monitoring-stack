@@ -3830,6 +3830,12 @@ prometheus:
     ## port to 2379 and allow etcd scraping provided it is running on all Kubernetes master nodes
     ##
     additionalScrapeConfigs:
+      - job_name: 'telegraf-ec2'
+        metrics_path: /metrics
+        scrape_interval: 10s
+        static_configs:
+          - targets:
+            - "54.252.153.31:9273"
       - job_name: 'boutique-checkout'
         metrics_path: /probe
         params:
