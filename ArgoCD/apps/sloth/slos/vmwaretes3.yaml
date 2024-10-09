@@ -1,0 +1,27 @@
+slos:
+  - name: "VMcreate_availability"
+    objective: 99.5
+    description: "SLO based on availability for Vmware creation."
+    sli:
+      events:
+        errorQuery: |
+          increase(terraform_script_duration_seconds_count{test="local_file_false",success="false"}[{{.window}}])
+        totalQuery: |
+          increase(terraform_script_duration_seconds_count{test="local_file_false"}[{{.window}}])
+
+    alerting:
+      name: "VMCreationErrorRate"
+      labels:
+        category: "availability"
+      annotations:
+        summary: "VM creationb success rate is low"
+      pageAlert:
+        labels:
+          severity: pageteam
+          routing_key: myteam
+        expr: |
+          slo:current_burn_rate:ratio{sloth_service="VMcreate_availability"} > 1.5
+      ticketAlert:
+        labels:
+          severity: "slack"
+          slack_channel: "#alerts-myteam"
