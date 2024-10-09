@@ -1,5 +1,5 @@
 slos:
-  - name: "VMcreate_availability"
+  - name: "VMcreate_availability3"
     objective: 99.5
     description: "SLO based on availability for Vmware creation."
     sli:
