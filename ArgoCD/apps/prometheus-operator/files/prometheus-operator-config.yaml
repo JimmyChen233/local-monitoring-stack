@@ -3836,6 +3836,12 @@ prometheus:
         static_configs:
           - targets:
             - "54.252.153.31:9273"
+      - job_name: 'terraprom-ec2'
+        metrics_path: /metrics
+        scrape_interval: 20s
+        static_configs:
+          - targets:
+            - "ec2-35-94-47-68.us-west-2.compute.amazonaws.com:8080"
       - job_name: 'boutique-checkout'
         metrics_path: /probe
         params:
