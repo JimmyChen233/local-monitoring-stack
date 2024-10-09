@@ -5,9 +5,9 @@ slos:
     sli:
       events:
         errorQuery: |
-          increase(terraform_script_duration_seconds_count{test="local_file_false",success="false"}[{{.window}}])
+          increase(terraform_script_duration_seconds_count{test="local_file_failed",success="false"}[{{.window}}])
         totalQuery: |
-          increase(terraform_script_duration_seconds_count{test="local_file_false"}[{{.window}}])
+          increase(terraform_script_duration_seconds_count{test="local_file_failed"}[{{.window}}])
 
     alerting:
       name: "VMCreationErrorRate"
