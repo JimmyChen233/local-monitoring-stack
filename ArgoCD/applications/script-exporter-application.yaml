@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: script-exporter
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default-project
+  sources:
+    - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
+      targetRevision: demo
+      path: 'ArgoCD/apps/script-exporter'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: script-exporter
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - Validate=false
