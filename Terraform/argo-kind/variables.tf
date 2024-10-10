@@ -40,6 +40,12 @@ variable "deploy_blackbox_exporter" {
   default     = false
 }
 
+variable "deploy_script_exporter" {
+  description = "Enable deployment of script-exporter"
+  type        = bool
+  default     = false
+}
+
 variable "deploy_cloudwatch_exporter" {
   description = "Enable deployment of cloudwatch-exporter"
   type        = bool

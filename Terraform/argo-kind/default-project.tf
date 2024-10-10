@@ -98,6 +98,14 @@ resource "kubectl_manifest" "argocd_blackbox_exporter_application" {
   ]
 }
 
+resource "kubectl_manifest" "argocd_script_exporter_application" {
+  count     = var.deploy_script_exporter ? 1 : 0
+  yaml_body = file("${path.module}/../../ArgoCD/applications/script-exporter-application.yaml")
+  depends_on = [
+    kubectl_manifest.argocd_prometheus_operator_application
+  ]
+}
+
 resource "kubectl_manifest" "argocd_cloudwatch_exporter_application" {
   count     = var.deploy_cloudwatch_exporter ? 1 : 0
   yaml_body = file("${path.module}/../../ArgoCD/applications/cloudwatch-exporter-application.yaml")

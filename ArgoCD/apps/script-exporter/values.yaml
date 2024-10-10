@@ -187,14 +187,10 @@ serviceMonitor:
   autoCreate:
     enabled: true
 
-  targets: []
-    # - name: example                    # Human readable URL that will appear in Prometheus / AlertManager
-    #   script: ping                     # Name of the script to target.
-    #   labels: {}                       # Map of labels for ServiceMonitor. Overrides value set in `defaults`
-    #   interval: 60s                    # Scraping interval. Overrides value set in `defaults`
-    #   scrapeTimeout: 60s               # Scrape timeout. Overrides value set in `defaults`
-    #   additionalMetricsRelabels: []    # List of metric relabeling actions to run
-    #   additionalRelabeling: []         # List of relabeling actions to run
+  targets:
+    - target=google.com
+    - target=192.168.1.1
+    - target=example.com
 
 ## The configuration for the script_exporter as shown in
 ## https://github.com/ricoberger/script_exporter/tree/main#usage-and-configuration
@@ -209,6 +205,19 @@ config: |
 ##
 scripts:
   ping.sh: |
-    #!/bin/bash
-    ping -c 3 $1 > /dev/null 2>&1
-    exit $?
+    #!/usr/bin/ksh
+    for arg in "$@"
+    do
+      case $arg in
+        target=*)
+          target="${arg#*=}"  # Extract the target value
+          echo "Pinging target: $target"
+          ping -c 3 $target > /dev/null 2>&1  # Ping the target, discard output
+          if [ $? -ne 0 ]; then
+            echo "Ping to $target failed"
+            exit 1  # Exit with error if ping fails
+          fi
+          ;;
+      esac
+    done
+    exit 0
