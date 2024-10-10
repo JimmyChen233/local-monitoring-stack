@@ -209,15 +209,10 @@ scripts:
     for arg in "$@"
     do
       case $arg in
-        target=*)
-          target="${arg#*=}"  # Extract the target value
-          echo "Pinging target: $target"
-          ping -c 3 $target > /dev/null 2>&1  # Ping the target, discard output
-          if [ $? -ne 0 ]; then
-            echo "Ping to $target failed"
-            exit 1  # Exit with error if ping fails
-          fi
-          ;;
+      target=*)
+        target="${arg#*=}"
+        ;;
       esac
     done
-    exit 0
+    ping -c 3 $target > /dev/null 2>&1
+    exit $?
