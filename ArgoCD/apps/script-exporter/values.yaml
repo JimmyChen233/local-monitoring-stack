@@ -187,18 +187,19 @@ serviceMonitor:
   autoCreate:
     enabled: true
 
-  targets:
-    - target=google.com
-    - target=192.168.1.1
-    - target=example.com
+  targets: [  ]
 
 ## The configuration for the script_exporter as shown in
 ## https://github.com/ricoberger/script_exporter/tree/main#usage-and-configuration
 ##
 config: |
   scripts:
-    - name: ping
+    - name: ping_multiple_targets
       command: /etc/script-exporter/ping.sh
+      args:
+        - google.com
+        - example.com
+        - 192.168.1.1
 
 ## A list of scripts which should be added to the container. It is also possible to add some scripts to the container,
 ## via the "volumes" and "volumeMounts" values.
