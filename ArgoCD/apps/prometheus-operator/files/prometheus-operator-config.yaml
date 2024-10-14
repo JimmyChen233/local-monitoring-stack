@@ -3833,10 +3833,18 @@ prometheus:
       - job_name: 'script-exporter-ping'
         metrics_path: /probe
         params:
-          target: ["192.168.1.1", "8.8.8.8"]  # List of target IPs to ping
+          script: [ping]
         static_configs:
           - targets:
-            - 'localhost:9469'
+            - "8.8.8.8"  # Target 1
+            - "192.168.1.1"  # Target 2
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target  # Pass the target IP to the target parameter
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: "localhost:9469" 
       - job_name: 'telegraf-ec2'
         metrics_path: /metrics
         scrape_interval: 10s
