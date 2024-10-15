@@ -3837,8 +3837,8 @@ prometheus:
           params: [target,user]
         static_configs:
           - targets:
-            - "3.27.165.130:ubuntu"
-            - "3.107.97.212:ubuntu"
+            - "3.27.165.130"
+            - "3.107.97.212"
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
