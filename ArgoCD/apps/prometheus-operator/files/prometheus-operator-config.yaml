@@ -3834,7 +3834,7 @@ prometheus:
         metrics_path: /probe
         params:
           script: [ssh]
-          params: [target,user]
+          params: [target]
         static_configs:
           - targets:
             - "3.27.165.130"
