@@ -3834,6 +3834,7 @@ prometheus:
         metrics_path: /probe
         params:
           script: [ping]
+          params: [target]
         static_configs:
           - targets:
             - "8.8.8.8"
