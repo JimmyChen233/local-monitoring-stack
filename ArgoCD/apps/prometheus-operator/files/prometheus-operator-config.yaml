@@ -3836,15 +3836,15 @@ prometheus:
           script: [ping]
         static_configs:
           - targets:
-            - "8.8.8.8"  # Target 1
-            - "192.168.1.1"  # Target 2
+            - "8.8.8.8"
+            - "192.168.1.1"
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
           - source_labels: [__param_target]
             target_label: instance
           - target_label: __address__
-            replacement: "192.168.0.37:9469" 
+            replacement: "52.63.59.43:9469/" 
       - job_name: 'telegraf-ec2'
         metrics_path: /metrics
         scrape_interval: 10s
