@@ -1,0 +1,27 @@
+slos:
+  - name: "ssh_availability"
+    objective: 99.9
+    description: "SLO based on availability for the ssh success rate from nim server to target instances"
+    sli:
+      events:
+        errorQuery: |
+          sum(count_over_time((script_success{script="ssh"}==1)[{{.window}}:])) by(job)
+        totalQuery: |
+          sum(count_over_time((script_success{script="ssh"})[{{.window}}:])) by(job)
+
+    alerting:
+      name: "SSHConnectivityHighErrorRate"
+      labels:
+        category: "availability"
+      annotations:
+        summary: "SSH error rate is high"
+      pageAlert:
+        labels:
+          severity: pageteam
+          routing_key: myteam
+        expr: |
+          slo:current_burn_rate:ratio{sloth_service="ssh_availability"} > 1.5
+      ticketAlert:
+        labels:
+          severity: "slack"
+          slack_channel: "#alerts-myteam"
