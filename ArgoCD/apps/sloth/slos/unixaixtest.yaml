@@ -5,9 +5,9 @@ slos:
     sli:
       events:
         errorQuery: |
-          sum(count_over_time((script_success{script="ssh"}==1)[{{.window}}:])) by(job)
+          sum(count_over_time((script_success{job="script-exporter-ssh"}==1)[{{.window}}:])) by(job)
         totalQuery: |
-          sum(count_over_time((script_success{script="ssh"})[{{.window}}:])) by(job)
+          sum(count_over_time((script_success{job="script-exporter-ssh"})[{{.window}}:])) by(job)
 
     alerting:
       name: "SSHConnectivityHighErrorRate"
