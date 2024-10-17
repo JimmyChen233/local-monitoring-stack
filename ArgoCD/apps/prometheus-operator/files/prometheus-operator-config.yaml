@@ -3851,22 +3851,22 @@ prometheus:
             target_label: __param_user
           - target_label: __address__
             replacement: "52.63.59.43:9469"
-      - job_name: 'script-exporter-ping'
-        metrics_path: /probe
-        params:
-          script: [ping]
-          params: [target]
-        static_configs:
-          - targets:
-            - "8.8.8.8"
-            - "192.168.1.1"
-        relabel_configs:
-          - source_labels: [__address__]
-            target_label: __param_target
-          - source_labels: [__param_target]
-            target_label: instance
-          - target_label: __address__
-            replacement: "52.63.59.43:9469" 
+      # - job_name: 'script-exporter-ping'
+      #   metrics_path: /probe
+      #   params:
+      #     script: [ping]
+      #     params: [target]
+      #   static_configs:
+      #     - targets:
+      #       - "8.8.8.8"
+      #       - "192.168.1.1"
+      #   relabel_configs:
+      #     - source_labels: [__address__]
+      #       target_label: __param_target
+      #     - source_labels: [__param_target]
+      #       target_label: instance
+      #     - target_label: __address__
+      #       replacement: "52.63.59.43:9469" 
       - job_name: 'telegraf-ec2'
         metrics_path: /metrics
         scrape_interval: 10s
