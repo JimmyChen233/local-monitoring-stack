@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: script-exporter-rules
+  namespace: monitoring
+  labels:
+    role: alert-rules
+spec:
+  groups:
+  - name: script-exporter.rules
+    rules:
+    - alert: ScriptExporterDown
+      expr: absent(script_success{job="script-exporter-ssh"}) == 1
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Script Exporter is down"
+        description: "The script-exporter is not running or not exposing the 'script_success' metric for more than 5 minutes."
