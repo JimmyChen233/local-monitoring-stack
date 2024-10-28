@@ -1,0 +1,28 @@
+
+slos:
+  - name: "o365-outlook-availability"
+    objective: 99.9
+    description: "SLO based on sending emails through outlook in o365 platform."
+    sli:
+      events:
+        errorQuery: |
+          sum(count_over_time((email_send_success{job="o365-poc-send-email"}==0)[{{.window}}:])) by(job)
+        totalQuery: |
+          sum(count_over_time((email_send_success{job="o365-poc-send-email"})[{{.window}}:])) by(job)
+
+    alerting:
+      name: "O365EmailSentErrorRate"
+      labels:
+        category: "availability"
+      annotations:
+        summary: "O365 email sent error rate is high"
+      pageAlert:
+        labels:
+          severity: pageteam
+          routing_key: myteam
+        expr: |
+          slo:current_burn_rate:ratio{sloth_service="o365-outlook-availability"} > 1.5
+      ticketAlert:
+        labels:
+          severity: "slack"
+          slack_channel: "#alerts-myteam"
