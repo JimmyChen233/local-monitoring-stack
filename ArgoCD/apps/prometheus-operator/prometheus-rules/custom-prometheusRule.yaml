@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    release: prometheus-operator
+  name: custom-recording-rules
+  namespace: monitoring
+spec:
+  groups:
+  - name: service-operational-group
+    rules:
+    - expr: |
+        ((time() + 36000) % 604800 >= bool 0) * ((time() + 36000) % 604800 < bool 432000)
+      record: service_operational_weekdays
