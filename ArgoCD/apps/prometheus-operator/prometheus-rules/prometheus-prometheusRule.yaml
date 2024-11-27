@@ -42,4 +42,4 @@ spec:
     # Define operational hours: Monday-Friday in Sydney time (UTC+10 or UTC+11)
     - record: service_operational_weekdays
       expr: |
-        ((time() + 36000) % 604800 >= 0) and ((time() + 36000) % 604800 < 432000)
+        ((time() + 36000) % 604800 >= bool 0) * ((time() + 36000) % 604800 < bool 432000)
