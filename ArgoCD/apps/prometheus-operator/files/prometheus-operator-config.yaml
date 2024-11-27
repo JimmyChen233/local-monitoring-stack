@@ -192,12 +192,13 @@ defaultRules:
 ## Provide custom recording or alerting rules to be deployed into the cluster.
 ##
 additionalPrometheusRulesMap: {}
-#  rule-name:
-#    groups:
-#    - name: my_group
-#      rules:
-#      - record: my_record
-#        expr: 100 * my_record
+  rule-name:
+    groups:
+    - name: service-operational-group
+      rules:
+      - expr: |
+          ((time() + 36000) % 604800 >= bool 0) * ((time() + 36000) % 604800 < bool 432000)
+        record: service_operational_weekdays
 
 ##
 global:
