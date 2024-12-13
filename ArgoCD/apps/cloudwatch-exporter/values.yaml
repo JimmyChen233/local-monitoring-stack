@@ -30,21 +30,21 @@ serviceAccount:
 config: |-
   apiVersion: v1alpha1
   sts-region: ap-southeast-2
-  discovery:
-    jobs:
-      - type: custom
-        roles:
-          - roleArn: "arn:aws:iam::880682648680:role/cloudwatch-exporter-role"
-        regions:
-          - ap-southeast-2
-        metrics:
-          - name: github_test_success
-            namespace: GitHubMetrics
-            statistics:
-              - Minimum
-            period: 300
-            length: 300
-            nilToZero: true
+  customNamespace:
+    - name: github_test_success
+      namespace: GitHubMetrics
+      statistics:
+        - Minimum      
+      roles:
+        - roleArn: "arn:aws:iam::880682648680:role/cloudwatch-exporter-role"
+      regions:
+        - ap-southeast-2
+      metrics:
+        - name: github_test_success
+          period: 300
+          length: 600
+          nilToZero: true
+          
 
 serviceMonitor:
   enabled: true
