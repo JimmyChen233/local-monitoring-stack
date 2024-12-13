@@ -6,7 +6,8 @@ metadata:
 spec:
   description: Default project
   sourceRepos:
-    - 'https://github.com/clear-route/local-monitoring-stack.git'
+    - 'https://github.com/JimmyChen233/local-monitoring-stack.git'
+    - 'https://github.com/JimmyChen233/local-monitoring-stack.git'
     - 'https://prometheus-community.github.io/helm-charts'
     - 'ghcr.io/grafana/helm-charts'
     - 'https://kubernetes-sigs.github.io/metrics-server'
