@@ -30,6 +30,22 @@ serviceAccount:
 config: |-
   apiVersion: v1alpha1
   sts-region: ap-southeast-2
+  discovery:
+    jobs:
+      - type: lambda
+        roles:
+          - roleArn: "arn:aws:iam::880682648680:role/cloudwatch-exporter-role"
+        regions:
+          - ap-southeast-2
+        length: 600
+        delay: 120
+        statistics:
+          - Average
+        metrics:
+          - name: Invocations
+            period: 300
+            length: 600
+            nilToZero: false
   customNamespace:
     - name: github_test_success
       namespace: GitHubMetrics
