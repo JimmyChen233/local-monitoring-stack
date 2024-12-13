@@ -32,7 +32,7 @@ config: |-
   sts-region: ap-southeast-2
   discovery:
     jobs:
-      - type: lambda
+      - type: AWS/Lambda
         roles:
           - roleArn: "arn:aws:iam::880682648680:role/cloudwatch-exporter-role"
         regions:
