@@ -39,12 +39,12 @@ config: |-
           - ap-southeast-2
         metrics:
           - name: github_test_success
-          namespace: GitHubMetrics
-          statistics:
-            - Minimum
-          period: 300
-          length: 300
-          nilToZero: true
+            namespace: GitHubMetrics
+            statistics:
+              - Minimum
+            period: 300
+            length: 300
+            nilToZero: true
 
 serviceMonitor:
   enabled: true
