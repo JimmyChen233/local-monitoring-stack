@@ -20,7 +20,7 @@ serviceAccount:
   # Will add the provided map to the annotations for the created serviceAccount
   # e.g.
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::975050172027:role/cloudwatch-exporter-eks-role
+    eks.amazonaws.com/role-arn: arn:aws:iam::880682648680:role/cloudwatch-exporter-role
     eks.amazonaws.com/sts-regional-endpoints: "true"
   # Specifies whether to automount API credentials for the ServiceAccount.
   automountServiceAccountToken: true
@@ -30,16 +30,19 @@ serviceAccount:
 config: |-
   apiVersion: v1alpha1
   sts-region: ap-southeast-2
-  customNamespace:
-    - name: LastBackupTime
-      namespace: S3/BackupMetrics
-      regions:
-        - ap-southeast-2
-      metrics:
-        - name: LastBackupTime
+  discovery:
+    jobs:
+      - type: custom
+        roles:
+          - roleArn: "arn:aws:iam::880682648680:role/cloudwatch-exporter-role"
+        regions:
+          - ap-southeast-2
+        metrics:
+          - name: github_test_success
+          namespace: GitHubMetrics
           statistics:
-            - Maximum
-          period: 60
+            - Minimum
+          period: 300
           length: 300
           nilToZero: true
 
