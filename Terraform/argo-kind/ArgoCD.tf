@@ -39,7 +39,7 @@ metadata:
     argocd.argoproj.io/secret-type: repository
 stringData:
   type: git
-  url: https://github.com/clear-route/local-monitoring-stack.git
+  url: https://github.com/JimmyChen233/local-monitoring-stack.git
   username: "${var.github_username}"
   password: "${var.github_token}"
 EOF

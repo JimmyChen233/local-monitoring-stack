@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default-project
   sources:
-    - repoURL: 'https://github.com/clear-route/local-monitoring-stack.git'
+    - repoURL: 'https://github.com/JimmyChen233/local-monitoring-stack.git'
       targetRevision: demo
       path: 'ArgoCD/apps/script-exporter'
   destination:

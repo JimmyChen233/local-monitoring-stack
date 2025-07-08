@@ -14,7 +14,7 @@ terraform {
 provider "kind" {}
 
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     host                   = local.host
     cluster_ca_certificate = local.cluster_ca_certificate
     client_certificate     = local.client_certificate

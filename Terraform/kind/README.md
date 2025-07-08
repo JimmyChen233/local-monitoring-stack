@@ -12,6 +12,7 @@ terraform apply
 You should see a kube-config file is generated in this folder. The kube config is also output into ~/.kube/config, but sometimes it messes up once update. So, 
 ```
 export KUBECONFIG="/Users/$(whoami)/YourWorkDir/local-monitoring-stack/kind-terraform/kind-kube-config.yaml"
+export KUBECONFIG=/Users/guanqiaochen/Desktop/WorkDir/local-monitoring-stack/Terraform/kind/kind-kube-config.yaml
 ```
 Now check you k8s cluster `kubectl config current-context`
 
