@@ -7,5 +7,5 @@ serviceAccount:
   create: false
   name: aws-load-balancer-controller
 
-clusterName: demo
+clusterName: main
 autoDiscoverAwsVpcID: true

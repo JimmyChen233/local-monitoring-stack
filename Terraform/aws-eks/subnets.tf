@@ -6,7 +6,7 @@ resource "aws_subnet" "private-a" {
   tags = {
     "Name"                            = "private-${var.region}a"
     "kubernetes.io/role/internal-elb" = "1"
-    "kubernetes.io/cluster/demo"      = "owned"
+    "kubernetes.io/cluster/main"      = "owned"
   }
 }
 
@@ -18,7 +18,7 @@ resource "aws_subnet" "private-b" {
   tags = {
     "Name"                            = "private-${var.region}b"
     "kubernetes.io/role/internal-elb" = "1"
-    "kubernetes.io/cluster/demo"      = "owned"
+    "kubernetes.io/cluster/main"      = "owned"
   }
 }
 
@@ -31,7 +31,7 @@ resource "aws_subnet" "public-a" {
   tags = {
     "Name"                       = "public-${var.region}a"
     "kubernetes.io/role/elb"     = "1"
-    "kubernetes.io/cluster/demo" = "owned"
+    "kubernetes.io/cluster/main" = "owned"
   }
 }
 
@@ -44,6 +44,6 @@ resource "aws_subnet" "public-b" {
   tags = {
     "Name"                       = "public-${var.region}b"
     "kubernetes.io/role/elb"     = "1"
-    "kubernetes.io/cluster/demo" = "owned"
+    "kubernetes.io/cluster/main" = "owned"
   }
 }

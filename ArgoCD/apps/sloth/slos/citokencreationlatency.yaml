@@ -9,3 +9,19 @@ slos:
           sum(count_over_time((email_send_success{job="o365-poc-send-email"}==0)[{{.window}}:])) by(job) or vector(0)
         totalQuery: |
           sum(count_over_time((email_send_success{job="o365-poc-send-email"})[{{.window}}:])) by(job)
+    alerting:
+      name: "CITokenCreationLatencyHigh"
+      labels:
+        team: wbx-ci
+      annotations:
+        summary: "CI Token Creation Latency is high"
+      pageAlert:
+        labels:
+          severity: pageteam
+          routing_key: myteam
+        expr: |
+          slo:current_burn_rate:ratio{sloth_service="ci-token-creation-latency"} > 1.5
+      ticketAlert:
+        labels:
+          severity: "slack"
+          slack_channel: "#alerts-myteam"

@@ -1,5 +1,5 @@
 variable clustername {
   type        = string
-  default     = "demo"
+  default     = "main"
   description = "kind cluster name"
 }
