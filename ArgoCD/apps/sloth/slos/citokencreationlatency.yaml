@@ -6,9 +6,9 @@ slos:
     sli:
       events:
         errorQuery: |
-          sum(count_over_time((email_send_success{job="o365-poc-send-email"}==0)[{{.window}}:])) by(job) or vector(0)
+          sum(count_over_time(ServletRequests_value{component=~"idbroker", responseCodeGroup="5xx", uri="/idb/oauth2/v1/access_token", cluster!="BTS_EU"}[{{.window}}:]))
         totalQuery: |
-          sum(count_over_time((email_send_success{job="o365-poc-send-email"})[{{.window}}:])) by(job)
+          sum(count_over_time(ServletRequests_value{component=~"idbroker", uri="/idb/oauth2/v1/access_token", cluster!="BTS_EU"}[{{.window}}:]))
     alerting:
       name: "CITokenCreationLatencyHigh"
       labels:
