@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jenkins
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default-project
+  sources:
+    - repoURL: 'https://github.com/JimmyChen233/local-monitoring-stack.git'
+      targetRevision: main
+      path: 'ArgoCD/apps/jenkins'
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: "devops-tool"
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
