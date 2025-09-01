@@ -58,6 +58,12 @@ variable "deploy_sloth" {
   default     = false
 }
 
+variable "deploy_jenkins" {
+  description = "Enable deployment of Jenkins"
+  type        = bool
+  default     = false
+}
+
 variable "deploy_dprs_poc" {
   description = "Enable deployment of dprs_poc"
   type        = bool
