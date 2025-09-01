@@ -25,13 +25,13 @@ variable "deploy_grafana_mimir" {
 variable "deploy_prometheus_operator" {
   description = "Enable deployment of prometheus-operator"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "deploy_grafana_operator" {
   description = "Enable deployment of grafana-operator"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "deploy_blackbox_exporter" {
@@ -55,7 +55,7 @@ variable "deploy_cloudwatch_exporter" {
 variable "deploy_sloth" {
   description = "Enable deployment of sloth SLO"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "deploy_jenkins" {
