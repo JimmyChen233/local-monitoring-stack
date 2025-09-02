@@ -13,7 +13,7 @@ spec:
       path: 'ArgoCD/apps/jenkins'
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: "devops-tool"
+    namespace: "devops-tools"
   syncPolicy:
     automated:
       prune: true
